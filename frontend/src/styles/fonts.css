@@ -1,4 +1,5 @@
 /* Clash Display — Self Hosted */
+
 @font-face {
     font-family: "Clash Display";
     src: url("/fonts/ClashDisplay-Regular.woff2") format("woff2");
@@ -17,7 +18,7 @@
 
 @font-face {
     font-family: "Clash Display";
-    src: url("/") format("woff2");
+    src: url("/fonts/ClashDisplay-Semibold.woff2") format("woff2");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
