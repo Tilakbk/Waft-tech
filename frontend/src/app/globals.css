@@ -1,5 +1,6 @@
 @import "tailwindcss";
-
+@import "../styles/fonts.css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 /* ============================================
    DESIGN TOKENS — WAFT TECH
    ============================================ */
