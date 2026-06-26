@@ -1,0 +1,35 @@
+# ========================
+# FRONTEND
+# ========================
+frontend/.next/
+frontend/node_modules/
+frontend/.env.local
+frontend/.env*.local
+frontend/out/
+frontend/build/
+frontend/.DS_Store
+frontend/*.pem
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ========================
+# BACKEND (for later)
+# ========================
+backend/target/
+backend/.env
+backend/*.env
+backend/application-prod.properties
+backend/.DS_Store
+backend/*.log
+
+# ========================
+# GENERAL
+# ========================
+.DS_Store
+.idea/
+*.iml
+*.class
+.env
+.env.local
+Thumbs.db
