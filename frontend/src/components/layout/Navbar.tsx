@@ -138,8 +138,11 @@ export default function Navbar() {
                                 backgroundColor: "var(--color-black)",
                                 padding: "0.625rem 1.25rem",
                                 borderRadius: "var(--radius-full)",
-                                transition: "background-color 150ms ease",
+                                transition: "background-color 150ms ease,opacity 200ms ease",
                                 whiteSpace: "nowrap",
+                                opacity: isMenuOpen ? 0 : 1,
+                                pointerEvents: isMenuOpen ? "none" : "auto",
+
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.backgroundColor =
