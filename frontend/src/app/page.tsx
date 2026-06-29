@@ -1,7 +1,9 @@
+﻿import HeroSection from "@/components/home/HeroSection";
+
 export default function Home() {
-    return (
-        <main>
-            <h1>Waft Tech</h1>
-        </main>
-    );
+  return (
+    <main>
+      <HeroSection />
+    </main>
+  );
 }
