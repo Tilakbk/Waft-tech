@@ -1,26 +1,26 @@
-[
+﻿[
   {
-    "id": 1,
-    "slug": "ecommerce-platform",
-    "title": "E‑commerce Platform",
-    "summary": "A scalable online store with modern checkout flow.",
-    "heroImage": "/images/projects/ecommerce.jpg",
-    "tags": ["React", "Next.js", "Stripe"]
+    "slug": "luminate",
+    "title": "Luminate",
+    "category": "Branding",
+    "tags": ["Branding", "Mobile App"],
+    "thumbnail": "/images/works/luminate-thumb.jpg",
+    "year": "2025"
   },
   {
-    "id": 2,
-    "slug": "healthcare-app",
-    "title": "Healthcare App",
-    "summary": "Mobile app for patient records and telemedicine.",
-    "heroImage": "/images/projects/healthcare.jpg",
-    "tags": ["React Native", "Firebase"]
+    "slug": "lineage-journey",
+    "title": "Lineage Journey",
+    "category": "Web Development",
+    "tags": ["Web Development", "UX Design"],
+    "thumbnail": "/images/works/lineage-thumb.jpg",
+    "year": "2024"
   },
   {
-    "id": 3,
-    "slug": "fintech-dashboard",
-    "title": "Fintech Dashboard",
-    "summary": "Analytics dashboard for financial insights.",
-    "heroImage": "/images/projects/fintech.jpg",
-    "tags": ["TypeScript", "D3.js"]
+    "slug": "summa",
+    "title": "SUMMA",
+    "category": "Product Design",
+    "tags": ["Product Design", "Branding"],
+    "thumbnail": "/images/works/summa-thumb.jpg",
+    "year": "2024"
   }
 ]
