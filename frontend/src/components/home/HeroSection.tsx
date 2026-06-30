@@ -121,31 +121,7 @@ export default function HeroSection() {
             experience online.
           </p>
 
-          <Link
-            href="/contact"
-            style={{
-              display: "inline-block",
-              fontFamily: "var(--font-body)",
-              fontSize: "0.9rem",
-              fontWeight: 500,
-              color: "var(--color-black)",
-              backgroundColor: "#ffffff",
-              padding: "1rem 2rem",
-              borderRadius: "var(--radius-full)",
-              transition: "background-color 150ms ease, color 150ms ease",
-              whiteSpace: "nowrap",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--color-brand-teal)";
-              (e.currentTarget as HTMLAnchorElement).style.color = "#ffffff";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#ffffff";
-              (e.currentTarget as HTMLAnchorElement).style.color = "var(--color-black)";
-            }}
-          >
-            Start your project
-          </Link>
+
         </div>
       </div>
     </section>

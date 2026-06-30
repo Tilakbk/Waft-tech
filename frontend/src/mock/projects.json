@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "slug": "ecommerce-platform",
+    "title": "E‑commerce Platform",
+    "summary": "A scalable online store with modern checkout flow.",
+    "heroImage": "/images/projects/ecommerce.jpg",
+    "tags": ["React", "Next.js", "Stripe"]
+  },
+  {
+    "id": 2,
+    "slug": "healthcare-app",
+    "title": "Healthcare App",
+    "summary": "Mobile app for patient records and telemedicine.",
+    "heroImage": "/images/projects/healthcare.jpg",
+    "tags": ["React Native", "Firebase"]
+  },
+  {
+    "id": 3,
+    "slug": "fintech-dashboard",
+    "title": "Fintech Dashboard",
+    "summary": "Analytics dashboard for financial insights.",
+    "heroImage": "/images/projects/fintech.jpg",
+    "tags": ["TypeScript", "D3.js"]
+  }
+]
