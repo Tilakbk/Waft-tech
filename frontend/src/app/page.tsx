@@ -2,6 +2,7 @@
 import DifferentiatorSection from "@/components/home/DifferentiatorSection";
 import OurOffersSection from "@/components/home/OurOffersSection";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
+import IndustryGridSection from "@/components/home/IndustryGridSection";
 
 export default function Home() {
   return (
@@ -9,7 +10,8 @@ export default function Home() {
       <HeroSection />
       <DifferentiatorSection />
       <OurOffersSection />
-      <FeaturedProjects/>
+      <FeaturedProjects />
+      <IndustryGridSection />
     </main>
   );
 }
