@@ -166,3 +166,7 @@ a {
 .bg-section {
   background-color: var(--color-gray-bg);
 }
+
+.project-card:hover .project-card-img {
+  transform: scale(1.05);
+}
