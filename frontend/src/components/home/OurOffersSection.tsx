@@ -171,7 +171,7 @@ export default function OurOffersSection() {
           onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-gray-border)"; }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-gray-bg)"; }}
         >
-          {"\\u2192"}
+          {/* {"\\u2192"} */}
         </button>
       </div>
 
