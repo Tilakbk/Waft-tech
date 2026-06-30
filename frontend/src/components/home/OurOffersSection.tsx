@@ -141,7 +141,7 @@ export default function OurOffersSection() {
                   style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.95rem", fontWeight: 500, color: "var(--color-black)" }}
                 >
                   Learn More
-                  {/* <span>{"\\u2192"}</span> */}
+                  <span>{"\→"}</span>
                 </a>
               </div>
             </div>
@@ -171,7 +171,7 @@ export default function OurOffersSection() {
           onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-gray-border)"; }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-gray-bg)"; }}
         >
-          {/* {"\\u2192"} */}
+          {"\→"}
         </button>
       </div>
 
