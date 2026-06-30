@@ -1,12 +1,21 @@
-﻿"use client";
+"use client";
 
 interface ProjectFilterProps {
-  categories: string[];
   active: string;
   onChange: (category: string) => void;
 }
 
-export default function ProjectFilter({ categories, active, onChange }: ProjectFilterProps) {
+const categories = [
+  "All",
+  "E-commerce development",
+  "Branding",
+  "Desktop app development",
+  "App development",
+  "Website development",
+  "UI/UX Design",
+];
+
+export default function ProjectFilter({ active, onChange }: ProjectFilterProps) {
   return (
     <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "3.5rem" }}>
       {categories.map((cat) => (
@@ -19,11 +28,12 @@ export default function ProjectFilter({ categories, active, onChange }: ProjectF
             fontWeight: 500,
             padding: "0.6rem 1.25rem",
             borderRadius: "var(--radius-full)",
-            border: active === cat ? "1px solid var(--color-black)" : "1px solid var(--color-gray-border)",
-            backgroundColor: active === cat ? "var(--color-black)" : "transparent",
+            border: active === cat ? "1px solid var(--color-brand-teal)" : "1px solid var(--color-gray-border)",
+            backgroundColor: active === cat ? "var(--color-brand-teal)" : "transparent",
             color: active === cat ? "#ffffff" : "var(--color-gray-mid)",
             cursor: "pointer",
             transition: "all 150ms ease",
+            whiteSpace: "nowrap",
           }}
         >
           {cat}
