@@ -1,4 +1,6 @@
-﻿export default function TestimonialsCarousel() {
+﻿"use client";
+
+export default function TestimonialsCarousel() {
   return (
     <section style={{ backgroundColor: "var(--color-gray-bg)", paddingTop: "7rem", paddingBottom: "7rem" }}>
       <div className="container-custom">
