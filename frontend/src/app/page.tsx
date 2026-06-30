@@ -3,6 +3,8 @@ import DifferentiatorSection from "@/components/home/DifferentiatorSection";
 import OurOffersSection from "@/components/home/OurOffersSection";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 import IndustryGridSection from "@/components/home/IndustryGridSection";
+import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
+import TrustedBrands from "@/components/home/TrustedBrands";
 
 export default function Home() {
   return (
@@ -12,6 +14,8 @@ export default function Home() {
       <OurOffersSection />
       <FeaturedProjects />
       <IndustryGridSection />
+      <TestimonialsCarousel />
+      <TrustedBrands />
     </main>
   );
 }
