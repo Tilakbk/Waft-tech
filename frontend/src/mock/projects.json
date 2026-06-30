@@ -5,7 +5,46 @@
     "category": "Branding",
     "tags": ["Branding"],
     "thumbnail": "/images/works/luminate-thumb.jpg",
-    "year": "2025"
+    "year": "2025",
+    "caseStudy": {
+      "label": "Luminate",
+      "heroTitle": "Building Luminate: A Brand Identity for the Modern Storyteller",
+      "heroImage": "/images/works/luminate-hero.jpg",
+      "services": ["Branding"],
+      "date": "2025",
+      "clientName": "Luminate",
+      "clientUrl": "https://luminate.example.com",
+      "briefLabel": "About the project",
+      "briefParagraphs": [
+        "Luminate set out to redefine how independent creators present their work online. The client needed a brand identity and Kickstarter presence that felt premium, trustworthy, and instantly recognizable.",
+        "The team partnered with Waft Tech to design a full visual identity system and a campaign landing page that would help launch their MVP to a wider audience.",
+        "This case study walks through the discovery process, design decisions, and the results achieved during the engagement."
+      ],
+      "showcaseImage1": "/images/works/luminate-showcase-1.jpg",
+      "problemLabel": "Challenges Faced",
+      "problemTitle": "Problem Statement",
+      "problemParagraphs": [
+        "Luminate had a strong product but no cohesive brand language. Their existing visuals felt inconsistent across platforms, which made it hard for backers to trust the campaign.",
+        "The solution? A unified design system built from the ground up, anchored by a distinctive color palette and typography that could scale across web, social, and print."
+      ],
+      "solutionsTitle": "Solutions Implemented",
+      "solutions": [
+        { "heading": "New Visual Identity:", "text": "We designed a complete brand system including logo, color palette, and typography that reflected Luminate's mission of empowering creators." },
+        { "heading": "Campaign Landing Page:", "text": "A conversion-focused landing page was built to support the Kickstarter launch, with clear storytelling and social proof sections." },
+        { "heading": "Asset Library:", "text": "We delivered a reusable component library so the in-house team could maintain consistency as the brand grew." }
+      ],
+      "showcaseImage2": "/images/works/luminate-showcase-2.jpg",
+      "resultLabel": "The Result",
+      "resultTitle": "Satisfying Result",
+      "results": [
+        { "heading": "Funding Goal Exceeded:", "text": "The Kickstarter campaign surpassed its $144,000 goal, driven in large part by the new brand presence." },
+        { "heading": "Stronger Brand Recognition:", "text": "Backers and press consistently cited the visual identity as a reason the campaign stood out." }
+      ],
+      "thoughtsLabel": "Thoughts",
+      "thoughtsTitle": "Final Thoughts",
+      "thoughtsText": "Luminate is a reminder that strong storytelling and strong design go hand in hand. We are excited to continue supporting their journey as they launch their MVP.",
+      "showcaseImage3": "/images/works/luminate-showcase-3.jpg"
+    }
   },
   {
     "slug": "lineage-journey",
@@ -60,7 +99,7 @@
     "title": "Guide",
     "category": "App development",
     "tags": ["App development", "UI/UX Design"],
-    "thumbnail": "/images/works/luminate-thumb.jpg",
+    "thumbnail": "/images/works/guide-thumb.jpg",
     "year": "2022"
   }
 ]
