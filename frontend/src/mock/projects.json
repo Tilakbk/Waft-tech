@@ -3,24 +3,64 @@
     "slug": "luminate",
     "title": "Luminate",
     "category": "Branding",
-    "tags": ["Branding", "Mobile App"],
+    "tags": ["Branding"],
     "thumbnail": "/images/works/luminate-thumb.jpg",
     "year": "2025"
   },
   {
     "slug": "lineage-journey",
     "title": "Lineage Journey",
-    "category": "Web Development",
-    "tags": ["Web Development", "UX Design"],
+    "category": "Website development",
+    "tags": ["Website development", "UI/UX Design"],
     "thumbnail": "/images/works/lineage-thumb.jpg",
     "year": "2024"
   },
   {
     "slug": "summa",
     "title": "SUMMA",
-    "category": "Product Design",
-    "tags": ["Product Design", "Branding"],
+    "category": "App development",
+    "tags": ["App development", "Branding"],
     "thumbnail": "/images/works/summa-thumb.jpg",
     "year": "2024"
+  },
+  {
+    "slug": "chronotek",
+    "title": "Chronotek",
+    "category": "UI/UX Design",
+    "tags": ["UI/UX Design", "App development"],
+    "thumbnail": "/images/works/chronotek-thumb.jpg",
+    "year": "2024"
+  },
+  {
+    "slug": "sharing-hope",
+    "title": "The Sharing Hope",
+    "category": "Website development",
+    "tags": ["UI/UX Design", "Website development"],
+    "thumbnail": "/images/works/sharing-hope-thumb.jpg",
+    "year": "2023"
+  },
+  {
+    "slug": "ecomstore",
+    "title": "EcomStore",
+    "category": "E-commerce development",
+    "tags": ["E-commerce development"],
+    "thumbnail": "/images/works/ecomstore-thumb.jpg",
+    "year": "2023"
+  },
+  {
+    "slug": "deskflow",
+    "title": "DeskFlow",
+    "category": "Desktop app development",
+    "tags": ["Desktop app development"],
+    "thumbnail": "/images/works/deskflow-thumb.jpg",
+    "year": "2023"
+  },
+  {
+    "slug": "guide-app",
+    "title": "Guide",
+    "category": "App development",
+    "tags": ["App development", "UI/UX Design"],
+    "thumbnail": "/images/works/guide-thumb.jpg",
+    "year": "2022"
   }
 ]
