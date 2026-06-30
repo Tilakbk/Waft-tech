@@ -1,38 +1,54 @@
 ﻿"use client";
 
 import Link from "next/link";
+import { MapPin, Headphones, Disc, Feather, HandHeart, Activity, BookOpen, PlayCircle, Globe2, Orbit } from "lucide-react";
 
-const brands = ["CHRONOTEK", "luminate", "Confidencial", "Lineage", "SHARING hope", "Finay", "Guide", "Beautiful Minds", "NEWSTART", "Jeewit Bachan"];
+const brands = [
+  { label: "CHRONOTEK", sub: "Smart Time Tracking", Icon: MapPin },
+  { label: "luminate", sub: null, Icon: Headphones },
+  { label: "Confidencial", sub: null, Icon: Disc },
+  { label: "Lineage", sub: null, Icon: Feather },
+  { label: "SHARING hope", sub: null, Icon: HandHeart },
+  { label: "Finay", sub: null, Icon: Activity },
+  { label: "Guide", sub: null, Icon: BookOpen },
+  { label: "Beautiful Minds", sub: null, Icon: PlayCircle },
+  { label: "NEWSTART ONLINE", sub: null, Icon: Globe2 },
+  { label: "Jeewit Bachan", sub: null, Icon: Orbit },
+];
 
 export default function TrustedBrands() {
   return (
     <section style={{ backgroundColor: "var(--color-gray-bg)", paddingTop: "2rem", paddingBottom: "7rem" }}>
       <div className="container-custom">
 
-        {/* Logo grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
           rowGap: "3rem",
           columnGap: "2rem",
           marginBottom: "5rem",
         }}>
-          {brands.map((brand) => (
-            <div key={brand} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "1.1rem",
-                fontWeight: 600,
-                color: "var(--color-gray-mid)",
-                whiteSpace: "nowrap",
-              }}>
-                {brand}
-              </span>
+          {brands.map(({ label, sub, Icon }) => (
+            <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <Icon size={20} strokeWidth={1.75} color="var(--color-gray-mid)" />
+                <span style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "1.1rem",
+                  fontWeight: 600,
+                  color: "var(--color-gray-mid)",
+                  whiteSpace: "nowrap",
+                }}>
+                  {label}
+                </span>
+              </div>
+              {sub && (
+                <span style={{ fontSize: "0.7rem", color: "var(--color-gray-light)" }}>{sub}</span>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Closing statement + CTA */}
         <div style={{ textAlign: "center" }}>
           <h2 style={{
             fontFamily: "var(--font-display)",
