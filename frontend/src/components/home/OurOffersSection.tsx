@@ -141,7 +141,7 @@ export default function OurOffersSection() {
                   style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.95rem", fontWeight: 500, color: "var(--color-black)" }}
                 >
                   Learn More
-                  <span>{"\\u2192"}</span>
+                  {/* <span>{"\\u2192"}</span> */}
                 </a>
               </div>
             </div>
