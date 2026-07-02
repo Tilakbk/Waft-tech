@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "definitive-guide-magento-enterprise",
+    "title": "Definitive Guide To Magento Enterprise Development For Your Ecommerce Store",
+    "excerpt": "The right products bring the right kind of people to your ecommerce store. A platform like Magento influences how your customers experience your store from the first click.",
+    "category": "Magento Commerce",
+    "image": "/images/insights/magento-enterprise.jpg",
+    "date": "2024-03-15",
+    "featured": true
+  },
+  {
+    "slug": "top-8-magento-2-extensions",
+    "title": "Top 8 Best Magento 2 Extensions To Boost Your Sales",
+    "excerpt": "Are you tired of watching potential sales slip away through abandoned carts? Or found yourself drowning in the...",
+    "category": "Magento Commerce",
+    "image": "/images/insights/magento-extensions.jpg",
+    "date": "2024-02-20",
+    "featured": false
+  },
+  {
+    "slug": "magento-open-source-vs-adobe-commerce",
+    "title": "Magento Open Source vs Adobe Commerce Key Differences",
+    "excerpt": "Magento Commerce is a descendant of Adobe Commerce. It is not a replacement because it runs in the same codebase a...",
+    "category": "Magento Commerce",
+    "image": "/images/insights/magento-vs-adobe.jpg",
+    "date": "2024-02-10",
+    "featured": false
+  },
+  {
+    "slug": "8-best-magento-2-extensions-marketing",
+    "title": "8 Best Magento 2 Extensions for Marketing in 2024",
+    "excerpt": "Supercharge your marketing effort using these cutting-edge Magento 2 extensions this year.",
+    "category": "Magento Commerce",
+    "image": "/images/insights/magento-marketing.jpg",
+    "date": "2024-01-25",
+    "featured": false
+  },
+  {
+    "slug": "choose-right-magento-hosting",
+    "title": "How to Choose the Right Magento Hosting Provider",
+    "excerpt": "Choosing a hosting provider can make or break your online store. Here are 8 things that will help you choose the right...",
+    "category": "Web Development",
+    "image": "/images/insights/magento-hosting.jpg",
+    "date": "2024-01-15",
+    "featured": false
+  },
+  {
+    "slug": "magento-vs-shopify",
+    "title": "Magento vs Shopify - What's Best for Your Ecommerce Store?",
+    "excerpt": "Is Shopify Plus right ecommerce platform for your online store over Magento? This comprehensive comparison between...",
+    "category": "Web Design",
+    "image": "/images/insights/magento-vs-shopify.jpg",
+    "date": "2023-12-10",
+    "featured": false
+  },
+  {
+    "slug": "mastering-magento-seo",
+    "title": "Mastering Magento SEO: A Blueprint for E-commerce Success",
+    "excerpt": "Master these 10 Magento SEO tips to improve your store's online visibility. Get your basics right first and then do more...",
+    "category": "SEO",
+    "image": "/images/insights/magento-seo.jpg",
+    "date": "2023-11-20",
+    "featured": false
+  }
+]

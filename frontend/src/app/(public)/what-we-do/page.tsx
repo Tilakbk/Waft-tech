@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import IndustryGridSection from "@/components/home/IndustryGridSection";
-import { Code2, Figma, Globe, Smartphone, ShoppingCart, Database, ChevronDown } from "lucide-react";
+import { Code2,Globe, Smartphone, ShoppingCart, Database, ChevronDown } from "lucide-react";
 
 const services = [
   {
