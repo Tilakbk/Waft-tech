@@ -344,9 +344,9 @@ export default function ContactPage() {
                 US
               </div>
               <div>
-                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, color: "var(--color-black)", marginBottom: "0.5rem" }}>USA</h3>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, color: "var(--color-black)", marginBottom: "0.5rem" }}>Australia</h3>
                 <p style={{ fontSize: "0.9rem", color: "var(--color-brand-teal)", lineHeight: 1.6 }}>
-                  260 Peachtree St NW Suite<br />2200 Atlanta, GA 30303, USA
+                  260 Peachtree St NW Suite<br />2200 Atlanta, GA 30303, Australia
                 </p>
               </div>
             </div>
@@ -358,7 +358,7 @@ export default function ContactPage() {
               <div>
                 <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, color: "var(--color-black)", marginBottom: "0.5rem" }}>Nepal</h3>
                 <p style={{ fontSize: "0.9rem", color: "var(--color-brand-teal)", lineHeight: 1.6 }}>
-                  Gairidhara<br />Kathmandu 44600, Nepal
+                  Kupandole<br />Lalitpur 44600, Nepal
                 </p>
               </div>
             </div>
