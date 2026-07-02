@@ -46,6 +46,7 @@ export default function CareersPage() {
               We are always on the lookout for enthusiastic and talented professionals. Let us make a positive impact on the world through our work!
             </p>
             
+            <a 
               href="mailto:hr@wafttech.io"
               style={{
                 display: "inline-flex",
@@ -59,6 +60,7 @@ export default function CareersPage() {
                 padding: "1rem 2rem",
                 borderRadius: "var(--radius-full)",
                 transition: "background-color 150ms ease",
+                textDecoration: "none"
               }}
             >
               Get connected &#x2192;
@@ -207,6 +209,7 @@ export default function CareersPage() {
             Leave your information, and we will get back to you with any openings that suit your skillset.
           </p>
           
+          <a 
             href="mailto:hr@wafttech.io"
             style={{
               display: "inline-flex",
@@ -219,6 +222,7 @@ export default function CareersPage() {
               backgroundColor: "var(--color-brand-teal)",
               padding: "1rem 2rem",
               borderRadius: "var(--radius-full)",
+              textDecoration: "none"
             }}
           >
             Get connected &#x2192;
@@ -236,7 +240,7 @@ export default function CareersPage() {
             <p style={{ fontSize: "1rem", color: "var(--color-gray-mid)", lineHeight: 1.8, marginBottom: "1rem" }}>
               If you want to get exposure and enhance your skills in design or development, we can help you. Apply for an internship at Waft Tech today! To apply, send your resume at:
             </p>
-            <a href="mailto:hr@wafttech.io" style={{ fontSize: "0.95rem", fontWeight: 500, color: "var(--color-brand-teal)", borderBottom: "1px solid var(--color-brand-teal)", paddingBottom: "2px" }}>
+            <a href="mailto:hr@wafttech.io" style={{ fontSize: "0.95rem", fontWeight: 500, color: "var(--color-brand-teal)", borderBottom: "1px solid var(--color-brand-teal)", paddingBottom: "2px", textDecoration: "none" }}>
               hr@wafttech.io
             </a>
           </div>
@@ -247,7 +251,7 @@ export default function CareersPage() {
             <p style={{ fontSize: "1rem", color: "var(--color-gray-mid)", lineHeight: 1.8, marginBottom: "1rem" }}>
               Did not find the right position that you are applying for or there is no vacancy for the job you want? Apply anyway — we will definitely get back to you after a while.
             </p>
-            <a href="mailto:hr@wafttech.io" style={{ fontSize: "0.95rem", fontWeight: 500, color: "var(--color-brand-teal)", borderBottom: "1px solid var(--color-brand-teal)", paddingBottom: "2px" }}>
+            <a href="mailto:hr@wafttech.io" style={{ fontSize: "0.95rem", fontWeight: 500, color: "var(--color-brand-teal)", borderBottom: "1px solid var(--color-brand-teal)", paddingBottom: "2px", textDecoration: "none" }}>
               hr@wafttech.io
             </a>
           </div>
