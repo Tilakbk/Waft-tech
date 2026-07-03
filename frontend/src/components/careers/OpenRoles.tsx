@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { MapPin, Clock, Briefcase, ChevronDown } from "lucide-react";
 import jobsData from "@/mock/jobs.json";
+import ApplicationModal from "@/components/careers/ApplicationModal";
 
 interface Job {
   slug: string;
@@ -24,6 +24,7 @@ export default function OpenRoles() {
   const jobs = jobsData as Job[];
   const [activeDept, setActiveDept] = useState("All");
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
+  const [applyingTo, setApplyingTo] = useState<Job | null>(null);
 
   const filtered = activeDept === "All" ? jobs : jobs.filter((j) => j.department === activeDept);
 
@@ -50,7 +51,6 @@ export default function OpenRoles() {
             </h2>
           </div>
 
-          {/* Department filter */}
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
             {departments.map((dept) => (
               <button
@@ -95,7 +95,6 @@ export default function OpenRoles() {
                     transition: "box-shadow 200ms ease",
                   }}
                 >
-                  {/* Row header */}
                   <button
                     onClick={() => toggleExpand(job.slug)}
                     style={{
@@ -150,7 +149,6 @@ export default function OpenRoles() {
                     />
                   </button>
 
-                  {/* Expanded content */}
                   <div style={{
                     maxHeight: isExpanded ? "800px" : "0px",
                     overflow: "hidden",
@@ -183,8 +181,8 @@ export default function OpenRoles() {
                         ))}
                       </ul>
 
-                      <Link
-                        href={"mailto:hr@wafttech.io?subject=Application: " + job.title}
+                      <button
+                        onClick={() => setApplyingTo(job)}
                         style={{
                           display: "inline-flex",
                           alignItems: "center",
@@ -196,10 +194,12 @@ export default function OpenRoles() {
                           backgroundColor: "var(--color-brand-teal)",
                           padding: "0.75rem 1.5rem",
                           borderRadius: "var(--radius-full)",
+                          border: "none",
+                          cursor: "pointer",
                         }}
                       >
                         Apply for this role &#x2192;
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -208,6 +208,12 @@ export default function OpenRoles() {
           </div>
         )}
       </div>
+
+      <ApplicationModal
+        jobTitle={applyingTo?.title || ""}
+        isOpen={applyingTo !== null}
+        onClose={() => setApplyingTo(null)}
+      />
     </section>
   );
 }
