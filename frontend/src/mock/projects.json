@@ -52,7 +52,42 @@
     "category": "Website development",
     "tags": ["Website development", "UI/UX Design"],
     "thumbnail": "/images/works/lineage-thumb.jpg",
-    "year": "2024"
+    "year": "2024",
+    "caseStudy": {
+      "label": "Lineage Journey",
+      "heroTitle": "Lineage Journey: Making your spiritual journey better",
+      "heroImage": "/images/works/lineage-hero.jpg",
+      "services": ["Website development", "UI/UX Design"],
+      "date": "2024",
+      "clientName": "Lineage Journey",
+      "clientUrl": "https://lineagejourney.example.com",
+      "briefLabel": "About the project",
+      "briefParagraphs": [
+        "Lineage Journey is an educational platform that helps users explore biblical history and heritage through interactive storytelling and multimedia content.",
+        "Waft Tech was brought on to design and build a website that could hold rich multimedia content, watch, read, listen, and shop, while remaining fast and easy to navigate."
+      ],
+      "showcaseImage1": "/images/works/lineage-showcase-1.jpg",
+      "problemLabel": "Challenges Faced",
+      "problemTitle": "Problem Statement",
+      "problemParagraphs": [
+        "The client had a large archive of video, audio, and written content but no unified place to house it. Visitors struggled to find related material, and the existing site felt dated and slow."
+      ],
+      "solutionsTitle": "Solutions Implemented",
+      "solutions": [
+        { "heading": "Unified Content Hub:", "text": "We built a single platform combining watch, read, listen, and shop experiences under one cohesive design system." },
+        { "heading": "Related Content Engine:", "text": "A related-content module was added so visitors could naturally discover more relevant material as they browsed." }
+      ],
+      "showcaseImage2": "/images/works/lineage-showcase-2.jpg",
+      "resultLabel": "The Result",
+      "resultTitle": "Satisfying Result",
+      "results": [
+        { "heading": "Higher Engagement:", "text": "Average session duration increased significantly after launch as visitors explored more content per visit." }
+      ],
+      "thoughtsLabel": "Thoughts",
+      "thoughtsTitle": "Final Thoughts",
+      "thoughtsText": "Lineage Journey shows how thoughtful information architecture can turn a content archive into an engaging experience.",
+      "showcaseImage3": "/images/works/lineage-showcase-3.jpg"
+    }
   },
   {
     "slug": "summa",
@@ -60,7 +95,42 @@
     "category": "App development",
     "tags": ["App development", "Branding"],
     "thumbnail": "/images/works/summa-thumb.jpg",
-    "year": "2024"
+    "year": "2024",
+    "caseStudy": {
+      "label": "SUMMA",
+      "heroTitle": "SUMMA: A smarter way to study and retain knowledge",
+      "heroImage": "/images/works/summa-hero.jpg",
+      "services": ["App development", "Branding"],
+      "date": "2024",
+      "clientName": "SUMMA",
+      "clientUrl": "https://summa.example.com",
+      "briefLabel": "About the project",
+      "briefParagraphs": [
+        "SUMMA is a mobile learning app designed to help students retain knowledge through spaced repetition and bite-sized summaries.",
+        "We partnered with the founding team from the ground up, designing the brand identity and building the mobile application."
+      ],
+      "showcaseImage1": "/images/works/summa-showcase-1.jpg",
+      "problemLabel": "Challenges Faced",
+      "problemTitle": "Problem Statement",
+      "problemParagraphs": [
+        "Students had access to plenty of study material, but no simple way to review it efficiently. Existing apps felt cluttered and were not built around proven learning science."
+      ],
+      "solutionsTitle": "Solutions Implemented",
+      "solutions": [
+        { "heading": "Spaced Repetition Engine:", "text": "We built a review scheduling system based on spaced repetition to help users retain information long-term." },
+        { "heading": "Clean, Focused UI:", "text": "The interface was stripped down to essentials, keeping the user focused on one card at a time." }
+      ],
+      "showcaseImage2": "/images/works/summa-showcase-2.jpg",
+      "resultLabel": "The Result",
+      "resultTitle": "Satisfying Result",
+      "results": [
+        { "heading": "Strong Early Adoption:", "text": "SUMMA saw strong week-one retention after launch, with users returning daily to complete review sessions." }
+      ],
+      "thoughtsLabel": "Thoughts",
+      "thoughtsTitle": "Final Thoughts",
+      "thoughtsText": "SUMMA proves that good learning design is as much about restraint as it is about features.",
+      "showcaseImage3": "/images/works/summa-showcase-3.jpg"
+    }
   },
   {
     "slug": "chronotek",
@@ -68,7 +138,42 @@
     "category": "UI/UX Design",
     "tags": ["UI/UX Design", "App development"],
     "thumbnail": "/images/works/chronotek-thumb.jpg",
-    "year": "2024"
+    "year": "2024",
+    "caseStudy": {
+      "label": "Chronotek",
+      "heroTitle": "Chronotek: Designing a smarter way to track time",
+      "heroImage": "/images/works/chronotek-hero.jpg",
+      "services": ["UI/UX Design", "App development"],
+      "date": "2024",
+      "clientName": "Chronotek",
+      "clientUrl": "https://chronotek.example.com",
+      "briefLabel": "About the project",
+      "briefParagraphs": [
+        "Chronotek is a time-tracking app built for freelancers and small teams who need a fast, frictionless way to log billable hours.",
+        "Waft Tech led the full UX design process and built the front end of the application."
+      ],
+      "showcaseImage1": "/images/works/chronotek-showcase-1.jpg",
+      "problemLabel": "Challenges Faced",
+      "problemTitle": "Problem Statement",
+      "problemParagraphs": [
+        "Most time-tracking tools required too many steps to start and stop a timer, causing users to forget to log hours accurately, which directly affected their billing."
+      ],
+      "solutionsTitle": "Solutions Implemented",
+      "solutions": [
+        { "heading": "One-Tap Timers:", "text": "We redesigned the core flow so starting and stopping a timer takes a single tap from any screen." },
+        { "heading": "Smart Reminders:", "text": "Gentle reminders nudge users to log time if a timer has been left running or forgotten." }
+      ],
+      "showcaseImage2": "/images/works/chronotek-showcase-2.jpg",
+      "resultLabel": "The Result",
+      "resultTitle": "Satisfying Result",
+      "results": [
+        { "heading": "Fewer Missed Hours:", "text": "Users reported significantly fewer unbilled hours within the first month of using the redesigned app." }
+      ],
+      "thoughtsLabel": "Thoughts",
+      "thoughtsTitle": "Final Thoughts",
+      "thoughtsText": "Chronotek is a great example of how removing friction from a single core action can transform an entire product experience.",
+      "showcaseImage3": "/images/works/chronotek-showcase-3.jpg"
+    }
   },
   {
     "slug": "sharing-hope",
@@ -76,7 +181,42 @@
     "category": "Website development",
     "tags": ["UI/UX Design", "Website development"],
     "thumbnail": "/images/works/sharing-hope-thumb.jpg",
-    "year": "2023"
+    "year": "2023",
+    "caseStudy": {
+      "label": "The Sharing Hope",
+      "heroTitle": "The Sharing Hope: A website built to inspire generosity",
+      "heroImage": "/images/works/sharing-hope-hero.jpg",
+      "services": ["UI/UX Design", "Website development"],
+      "date": "2023",
+      "clientName": "The Sharing Hope",
+      "clientUrl": "https://sharinghope.example.com",
+      "briefLabel": "About the project",
+      "briefParagraphs": [
+        "The Sharing Hope is a nonprofit organization focused on community outreach. They needed a website that could clearly tell their story and make donating simple.",
+        "We designed and built a warm, accessible site that puts real stories and impact front and center."
+      ],
+      "showcaseImage1": "/images/works/sharing-hope-showcase-1.jpg",
+      "problemLabel": "Challenges Faced",
+      "problemTitle": "Problem Statement",
+      "problemParagraphs": [
+        "The previous site buried the donate button several clicks deep, and it was not clear to visitors how their contributions made an impact."
+      ],
+      "solutionsTitle": "Solutions Implemented",
+      "solutions": [
+        { "heading": "Impact-First Storytelling:", "text": "Real stories and outcomes were placed at the top of key pages to build trust before asking for a donation." },
+        { "heading": "Simplified Donation Flow:", "text": "The donate action is now accessible from every page in a single click." }
+      ],
+      "showcaseImage2": "/images/works/sharing-hope-showcase-2.jpg",
+      "resultLabel": "The Result",
+      "resultTitle": "Satisfying Result",
+      "results": [
+        { "heading": "Increased Donations:", "text": "Online donations grew noticeably in the months following launch." }
+      ],
+      "thoughtsLabel": "Thoughts",
+      "thoughtsTitle": "Final Thoughts",
+      "thoughtsText": "Clear storytelling paired with a frictionless donation flow made all the difference for The Sharing Hope.",
+      "showcaseImage3": "/images/works/sharing-hope-showcase-3.jpg"
+    }
   },
   {
     "slug": "ecomstore",
@@ -84,7 +224,42 @@
     "category": "E-commerce development",
     "tags": ["E-commerce development"],
     "thumbnail": "/images/works/ecomstore-thumb.jpg",
-    "year": "2023"
+    "year": "2023",
+    "caseStudy": {
+      "label": "EcomStore",
+      "heroTitle": "EcomStore: A storefront built to convert",
+      "heroImage": "/images/works/ecomstore-hero.jpg",
+      "services": ["E-commerce development"],
+      "date": "2023",
+      "clientName": "EcomStore",
+      "clientUrl": "https://ecomstore.example.com",
+      "briefLabel": "About the project",
+      "briefParagraphs": [
+        "EcomStore needed a modern, fast online storefront capable of handling seasonal traffic spikes without sacrificing checkout speed.",
+        "Waft Tech built a custom e-commerce platform tailored to their catalog and fulfillment process."
+      ],
+      "showcaseImage1": "/images/works/ecomstore-showcase-1.jpg",
+      "problemLabel": "Challenges Faced",
+      "problemTitle": "Problem Statement",
+      "problemParagraphs": [
+        "Their previous storefront was slow to load on mobile, and cart abandonment during checkout was unusually high."
+      ],
+      "solutionsTitle": "Solutions Implemented",
+      "solutions": [
+        { "heading": "Performance Overhaul:", "text": "We rebuilt the storefront with optimized images and lazy loading, cutting mobile load times significantly." },
+        { "heading": "Streamlined Checkout:", "text": "Checkout was reduced from five steps to two, with guest checkout enabled by default." }
+      ],
+      "showcaseImage2": "/images/works/ecomstore-showcase-2.jpg",
+      "resultLabel": "The Result",
+      "resultTitle": "Satisfying Result",
+      "results": [
+        { "heading": "Lower Cart Abandonment:", "text": "Checkout completion rates improved meaningfully after the redesign." }
+      ],
+      "thoughtsLabel": "Thoughts",
+      "thoughtsTitle": "Final Thoughts",
+      "thoughtsText": "EcomStore is proof that speed and simplicity are two of the most powerful conversion levers in e-commerce.",
+      "showcaseImage3": "/images/works/ecomstore-showcase-3.jpg"
+    }
   },
   {
     "slug": "deskflow",
@@ -92,7 +267,42 @@
     "category": "Desktop app development",
     "tags": ["Desktop app development"],
     "thumbnail": "/images/works/deskflow-thumb.jpg",
-    "year": "2023"
+    "year": "2023",
+    "caseStudy": {
+      "label": "DeskFlow",
+      "heroTitle": "DeskFlow: Bringing order to the modern workday",
+      "heroImage": "/images/works/deskflow-hero.jpg",
+      "services": ["Desktop app development"],
+      "date": "2023",
+      "clientName": "DeskFlow",
+      "clientUrl": "https://deskflow.example.com",
+      "briefLabel": "About the project",
+      "briefParagraphs": [
+        "DeskFlow is a desktop productivity app that helps teams organize tasks, notes, and files in one workspace.",
+        "We built the desktop application from the ground up, focused on speed and offline reliability."
+      ],
+      "showcaseImage1": "/images/works/deskflow-showcase-1.jpg",
+      "problemLabel": "Challenges Faced",
+      "problemTitle": "Problem Statement",
+      "problemParagraphs": [
+        "The team was juggling multiple disconnected tools for tasks, notes, and files, leading to lost context and duplicated work."
+      ],
+      "solutionsTitle": "Solutions Implemented",
+      "solutions": [
+        { "heading": "Unified Workspace:", "text": "Tasks, notes, and files now live in a single window with fast keyboard-driven navigation." },
+        { "heading": "Offline-First Architecture:", "text": "The app works fully offline and syncs automatically when a connection is restored." }
+      ],
+      "showcaseImage2": "/images/works/deskflow-showcase-2.jpg",
+      "resultLabel": "The Result",
+      "resultTitle": "Satisfying Result",
+      "results": [
+        { "heading": "Faster Task Switching:", "text": "Early users reported spending noticeably less time switching between tools during their workday." }
+      ],
+      "thoughtsLabel": "Thoughts",
+      "thoughtsTitle": "Final Thoughts",
+      "thoughtsText": "DeskFlow shows that sometimes the biggest productivity win is simply reducing the number of tools someone has to open.",
+      "showcaseImage3": "/images/works/deskflow-showcase-3.jpg"
+    }
   },
   {
     "slug": "guide-app",
@@ -100,6 +310,41 @@
     "category": "App development",
     "tags": ["App development", "UI/UX Design"],
     "thumbnail": "/images/works/guide-thumb.jpg",
-    "year": "2022"
+    "year": "2022",
+    "caseStudy": {
+      "label": "Guide",
+      "heroTitle": "Guide: A travel companion built for spontaneous trips",
+      "heroImage": "/images/works/guide-hero.jpg",
+      "services": ["App development", "UI/UX Design"],
+      "date": "2022",
+      "clientName": "Guide",
+      "clientUrl": "https://guideapp.example.com",
+      "briefLabel": "About the project",
+      "briefParagraphs": [
+        "Guide is a mobile app that helps travelers discover local spots and build itineraries on the fly, without heavy pre-planning.",
+        "Waft Tech designed the UX and built the mobile app end to end."
+      ],
+      "showcaseImage1": "/images/works/guide-showcase-1.jpg",
+      "problemLabel": "Challenges Faced",
+      "problemTitle": "Problem Statement",
+      "problemParagraphs": [
+        "Existing travel apps required extensive upfront planning. The client wanted something that worked well for spontaneous, in-the-moment decisions."
+      ],
+      "solutionsTitle": "Solutions Implemented",
+      "solutions": [
+        { "heading": "Location-Aware Suggestions:", "text": "The app surfaces nearby recommendations in real time based on the user's current location and time of day." },
+        { "heading": "One-Tap Itinerary Building:", "text": "Users can add any spot to their day plan with a single tap, no forms or manual entry required." }
+      ],
+      "showcaseImage2": "/images/works/guide-showcase-2.jpg",
+      "resultLabel": "The Result",
+      "resultTitle": "Satisfying Result",
+      "results": [
+        { "heading": "High Daily Engagement:", "text": "Users opened the app multiple times per day while traveling, well above initial projections." }
+      ],
+      "thoughtsLabel": "Thoughts",
+      "thoughtsTitle": "Final Thoughts",
+      "thoughtsText": "Guide taught us that removing planning friction can be just as valuable as adding more features.",
+      "showcaseImage3": "/images/works/guide-showcase-3.jpg"
+    }
   }
 ]
