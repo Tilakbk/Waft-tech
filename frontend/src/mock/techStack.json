@@ -1,0 +1,10 @@
+[
+  { "id": "1", "name": "React", "logo": "/images/techstack/react.svg", "category": "Frontend" },
+  { "id": "2", "name": "Next.js", "logo": "/images/techstack/nextjs.svg", "category": "Frontend" },
+  { "id": "3", "name": "TypeScript", "logo": "/images/techstack/typescript.svg", "category": "Language" },
+  { "id": "4", "name": "Tailwind CSS", "logo": "/images/techstack/tailwind.svg", "category": "Frontend" },
+  { "id": "5", "name": "Spring Boot", "logo": "/images/techstack/springboot.svg", "category": "Backend" },
+  { "id": "6", "name": "MySQL", "logo": "/images/techstack/mysql.svg", "category": "Database" },
+  { "id": "7", "name": "Docker", "logo": "/images/techstack/docker.svg", "category": "DevOps" },
+  { "id": "8", "name": "Figma", "logo": "/images/techstack/figma.svg", "category": "Design" }
+]

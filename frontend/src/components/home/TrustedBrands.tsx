@@ -1,59 +1,54 @@
-"use client";
-
 import Link from "next/link";
-import { MapPin, Headphones, Disc, Feather, HandHeart, Activity, BookOpen, PlayCircle, Globe2, Orbit } from "lucide-react";
+import brandsData from "@/mock/trustedBrands.json";
 
-const brands = [
-  { label: "CHRONOTEK", sub: "Smart Time Tracking", Icon: MapPin },
-  { label: "luminate", sub: null, Icon: Headphones },
-  { label: "Confidencial", sub: null, Icon: Disc },
-  { label: "Lineage", sub: null, Icon: Feather },
-  { label: "SHARING hope", sub: null, Icon: HandHeart },
-  { label: "Finay", sub: null, Icon: Activity },
-  { label: "Guide", sub: null, Icon: BookOpen },
-  { label: "Beautiful Minds", sub: null, Icon: PlayCircle },
-  { label: "NEWSTART ONLINE", sub: null, Icon: Globe2 },
-  { label: "Jeewit Bachan", sub: null, Icon: Orbit },
-];
+interface Brand {
+  id: string;
+  name: string;
+  logo: string;
+  url: string;
+}
 
-export default function TrustedBrands({ showCta = true }: { showCta?: boolean }) {
+export default function TrustedBrands() {
+  const brands = brandsData as Brand[];
+
   return (
-    <section style={{ backgroundColor: "var(--color-gray-bg)", paddingTop: "8rem", paddingBottom: "8rem" }}>
+    <section style={{ paddingTop: "5rem", paddingBottom: "5rem", borderTop: "1px solid var(--color-gray-border)", borderBottom: "1px solid var(--color-gray-border)" }}>
       <div className="container-custom">
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "6rem", alignItems: "start", marginBottom: showCta ? "6rem" : 0 }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 4vw, 3.5rem)", fontWeight: 700, color: "var(--color-black)", lineHeight: 1.1 }}>
-            Trusted by<br />leading brands
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", rowGap: "4rem", columnGap: "1rem" }}>
-            {brands.map(({ label, sub, Icon }) => (
-              <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <Icon size={20} strokeWidth={1.75} color="var(--color-gray-mid)" />
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 600, color: "var(--color-gray-mid)", whiteSpace: "nowrap" }}>{label}</span>
-                </div>
-                {sub && <span style={{ fontSize: "0.7rem", color: "var(--color-gray-light)" }}>{sub}</span>}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {showCta && (
-          <div style={{ textAlign: "center", paddingTop: "4rem", borderTop: "1px solid var(--color-gray-border)" }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 700, color: "var(--color-black)", lineHeight: 1.2, marginBottom: "2rem" }}>
-              Exceeding expectations,<br />one project at a time.
-            </h2>
+        <p style={{ fontSize: "0.85rem", fontWeight: 500, color: "var(--color-gray-light)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "2.5rem", textAlign: "center" }}>
+          Trusted by teams at
+        </p>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+          gap: "2rem",
+          alignItems: "center",
+        }}>
+          {brands.map((brand) => (
             <Link
-              href="/contact"
-              style={{ display: "inline-block", fontFamily: "var(--font-body)", fontSize: "0.95rem", fontWeight: 500, color: "#ffffff", backgroundColor: "var(--color-black)", padding: "0.875rem 2rem", borderRadius: "var(--radius-full)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--color-brand-teal)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--color-black)"; }}
+              key={brand.id}
+              href={brand.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "48px",
+                opacity: 0.6,
+                transition: "opacity 150ms ease",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.6"; }}
             >
-              Start your project
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={brand.logo}
+                alt={brand.name}
+                style={{ maxHeight: "32px", maxWidth: "120px", objectFit: "contain", filter: "grayscale(100%)" }}
+              />
             </Link>
-          </div>
-        )}
-
+          ))}
+        </div>
       </div>
     </section>
   );

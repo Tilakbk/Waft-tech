@@ -1,0 +1,8 @@
+[
+  { "id": "1", "name": "Nexora", "logo": "/images/brands/nexora.svg", "url": "https://nexora.example.com" },
+  { "id": "2", "name": "Bridgeline", "logo": "/images/brands/bridgeline.svg", "url": "https://bridgeline.example.com" },
+  { "id": "3", "name": "Everstone", "logo": "/images/brands/everstone.svg", "url": "https://everstone.example.com" },
+  { "id": "4", "name": "Marrow Labs", "logo": "/images/brands/marrow-labs.svg", "url": "https://marrowlabs.example.com" },
+  { "id": "5", "name": "CivicWorks", "logo": "/images/brands/civicworks.svg", "url": "https://civicworks.example.com" },
+  { "id": "6", "name": "Palmwood", "logo": "/images/brands/palmwood.svg", "url": "https://palmwood.example.com" }
+]

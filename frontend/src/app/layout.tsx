@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import AIChatbox from "@/components/chatbox/AIChatbox";
+import RootLayoutClient from "@/components/layout/RootLayoutClient";
 
 export const metadata: Metadata = {
   title: "Waft Tech | Building Digital Solutions",
@@ -18,10 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
-        <Footer />
-        <AIChatbox />
+        <RootLayoutClient>{children}</RootLayoutClient>
       </body>
     </html>
   );

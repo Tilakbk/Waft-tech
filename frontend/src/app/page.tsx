@@ -6,6 +6,7 @@ import IndustryGridSection from "@/components/home/IndustryGridSection";
 import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
 import TrustedBrands from "@/components/home/TrustedBrands";
 import InsightsPreview from "@/components/home/InsightsPreview";
+import TechStack from "@/components/home/TechStack";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <IndustryGridSection />
       <TestimonialsCarousel />
       <TrustedBrands />
+      <TechStack/>
       <InsightsPreview/>
     </main>
   );
