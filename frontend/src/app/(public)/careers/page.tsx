@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { DollarSign, UserCheck, Heart, Users, Utensils, Laugh, Cpu, GraduationCap, Home } from "lucide-react";
 import CoreValues from "@/components/company/CoreValues";
+import OpenRoles from "@/components/careers/OpenRoles";
 
 const benefits = [
   { label: "Competitive Salary and Benefits", Icon: DollarSign },
@@ -101,6 +102,9 @@ export default function CareersPage() {
 
       {/* Core Values — reuse from company */}
       <CoreValues />
+
+      {/* Open Positions */}
+      <OpenRoles />
 
       {/* Diversity */}
       <section style={{ paddingTop: "7rem", paddingBottom: "7rem" }}>
