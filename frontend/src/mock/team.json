@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "name": "Ashwin Rai",
+    "role": "Founder & CEO",
+    "photo": "/images/team/ashwin-rai.jpg",
+    "bio": "Ashwin leads the vision and strategy at Waft Tech, with a background in full-stack engineering and product design."
+  },
+  {
+    "id": "2",
+    "name": "Priya Sharma",
+    "role": "Head of Design",
+    "photo": "/images/team/priya-sharma.jpg",
+    "bio": "Priya oversees the design team, ensuring every project balances aesthetics with usability."
+  },
+  {
+    "id": "3",
+    "name": "Nikhil Thapa",
+    "role": "Lead Backend Engineer",
+    "photo": "/images/team/nikhil-thapa.jpg",
+    "bio": "Nikhil architects the backend systems that power our client applications, with deep expertise in Java and Spring Boot."
+  },
+  {
+    "id": "4",
+    "name": "Sarah Lin",
+    "role": "Frontend Developer",
+    "photo": "/images/team/sarah-lin.jpg",
+    "bio": "Sarah builds fast, accessible interfaces using React and Next.js."
+  },
+  {
+    "id": "5",
+    "name": "Bikash Gurung",
+    "role": "Project Manager",
+    "photo": "/images/team/bikash-gurung.jpg",
+    "bio": "Bikash keeps every project on track, coordinating between clients and the internal team."
+  },
+  {
+    "id": "6",
+    "name": "Anjali Karki",
+    "role": "UI/UX Designer",
+    "photo": "/images/team/anjali-karki.jpg",
+    "bio": "Anjali crafts user-centered interfaces, from wireframes to high-fidelity prototypes."
+  },
+  {
+    "id": "7",
+    "name": "Rohan Basnet",
+    "role": "QA Engineer",
+    "photo": "/images/team/rohan-basnet.jpg",
+    "bio": "Rohan ensures every release meets our quality bar through rigorous testing."
+  },
+  {
+    "id": "8",
+    "name": "Maya Tamang",
+    "role": "Marketing Lead",
+    "photo": "/images/team/maya-tamang.jpg",
+    "bio": "Maya drives brand awareness and growth strategy across all our marketing channels."
+  }
+]

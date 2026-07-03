@@ -1,112 +1,38 @@
 [
   {
-    "slug": "senior-frontend-developer",
-    "title": "Senior Frontend Developer",
+    "id": "1",
+    "title": "Frontend Developer",
     "department": "Engineering",
     "location": "Kathmandu, Nepal",
     "type": "Full-time",
-    "remote": true,
-    "postedDate": "2026-06-15",
-    "description": "We are looking for a Senior Frontend Developer to join our engineering team and help build polished, performant web experiences for our clients.",
-    "responsibilities": [
-      "Build and maintain responsive, accessible web applications using React and Next.js",
-      "Collaborate closely with designers to translate Figma designs into pixel-perfect UI",
-      "Write clean, well-tested, maintainable code",
-      "Mentor junior developers and participate in code reviews"
-    ],
-    "requirements": [
-      "4+ years of experience with React and modern JavaScript/TypeScript",
-      "Strong understanding of responsive design and cross-browser compatibility",
-      "Experience with state management and API integration",
-      "Excellent communication skills"
-    ]
+    "description": "We are looking for a skilled Frontend Developer with experience in React and Next.js to join our growing team.",
+    "open": true
   },
   {
-    "slug": "ui-ux-designer",
+    "id": "2",
     "title": "UI/UX Designer",
     "department": "Design",
     "location": "Kathmandu, Nepal",
     "type": "Full-time",
-    "remote": true,
-    "postedDate": "2026-06-20",
-    "description": "We are seeking a thoughtful UI/UX Designer who can turn complex problems into simple, elegant, and intuitive designs for web and mobile products.",
-    "responsibilities": [
-      "Conduct user research and translate findings into design decisions",
-      "Create wireframes, prototypes, and high-fidelity UI designs",
-      "Collaborate with developers to ensure design feasibility and quality",
-      "Maintain and evolve our design system"
-    ],
-    "requirements": [
-      "3+ years of UI/UX design experience, portfolio required",
-      "Proficiency in Figma",
-      "Strong understanding of accessibility and usability principles",
-      "Experience designing for both web and mobile platforms"
-    ]
+    "description": "Join our design team to create beautiful, user-centered digital experiences for our clients.",
+    "open": true
   },
   {
-    "slug": "backend-developer-spring-boot",
-    "title": "Backend Developer (Spring Boot)",
+    "id": "3",
+    "title": "Backend Engineer",
     "department": "Engineering",
-    "location": "Kathmandu, Nepal",
-    "type": "Full-time",
-    "remote": false,
-    "postedDate": "2026-06-25",
-    "description": "We are hiring a Backend Developer experienced with Java and Spring Boot to build secure, scalable APIs that power our client applications.",
-    "responsibilities": [
-      "Design and implement RESTful APIs using Spring Boot",
-      "Write database migrations and manage schema design",
-      "Implement authentication, authorization, and security best practices",
-      "Write unit and integration tests"
-    ],
-    "requirements": [
-      "3+ years of experience with Java and Spring Boot",
-      "Solid understanding of relational databases (MySQL/PostgreSQL)",
-      "Familiarity with Docker and CI/CD pipelines",
-      "Experience with JWT-based authentication is a plus"
-    ]
-  },
-  {
-    "slug": "digital-marketing-associate",
-    "title": "Digital Marketing Associate",
-    "department": "Marketing",
     "location": "Remote",
-    "type": "Part-time",
-    "remote": true,
-    "postedDate": "2026-06-28",
-    "description": "We are looking for a creative Digital Marketing Associate to help grow our brand presence across social media, content, and SEO.",
-    "responsibilities": [
-      "Plan and execute social media content calendars",
-      "Assist with SEO optimization for our blog and website",
-      "Track and report on campaign performance metrics",
-      "Collaborate with the design team on marketing assets"
-    ],
-    "requirements": [
-      "1-2 years of digital marketing experience",
-      "Familiarity with SEO tools and social media platforms",
-      "Strong writing skills",
-      "A portfolio of past campaigns is a plus"
-    ]
+    "type": "Full-time",
+    "description": "We need a strong Java/Spring Boot engineer to build and maintain our backend systems.",
+    "open": true
   },
   {
-    "slug": "qa-engineer",
-    "title": "QA Engineer",
-    "department": "Engineering",
+    "id": "4",
+    "title": "Project Manager",
+    "department": "Operations",
     "location": "Kathmandu, Nepal",
     "type": "Full-time",
-    "remote": false,
-    "postedDate": "2026-07-01",
-    "description": "We are looking for a detail-oriented QA Engineer to ensure the quality and reliability of the products we ship to clients.",
-    "responsibilities": [
-      "Write and execute manual and automated test cases",
-      "Identify, document, and track bugs through resolution",
-      "Collaborate with developers to improve testing coverage",
-      "Participate in release testing and sign-off"
-    ],
-    "requirements": [
-      "2+ years of QA/testing experience",
-      "Familiarity with test automation tools (e.g., Playwright, Selenium)",
-      "Strong attention to detail",
-      "Basic understanding of web and API testing"
-    ]
+    "description": "Lead client projects from discovery to delivery, coordinating between teams and stakeholders.",
+    "open": false
   }
 ]

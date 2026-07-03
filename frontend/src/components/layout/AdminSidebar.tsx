@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Briefcase, FileText, Users, Building2, Mail, UserSquare2, MessageSquare, LogOut } from "lucide-react";
+import { LayoutDashboard, Briefcase, FileText, Users, Building2, Mail, UserSquare2, MessageSquare, Star, Layers, LogOut } from "lucide-react";
 import { logout } from "@/lib/auth";
+
 
 const navItems = [
   { label: "Dashboard", href: "/admin/dashboard", Icon: LayoutDashboard },
@@ -13,6 +14,8 @@ const navItems = [
   { label: "Job Openings", href: "/admin/careers", Icon: Building2 },
   { label: "Job Applications", href: "/admin/applications", Icon: UserSquare2 },
   { label: "Inquiries", href: "/admin/inquiries", Icon: Mail },
+  { label: "Trusted Brands", href: "/admin/brands", Icon: Star },
+  { label: "Tech Stack", href: "/admin/tech-stack", Icon: Layers },
   { label: "Chat Logs", href: "/admin/chat-logs", Icon: MessageSquare },
 ];
 
