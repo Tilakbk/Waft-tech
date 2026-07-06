@@ -163,7 +163,7 @@ export default function OpenRoles() {
                         Responsibilities
                       </p>
                       <ul style={{ paddingLeft: "1.25rem", marginBottom: "1.5rem" }}>
-                        {job.responsibilities.map((r) => (
+                        {(job.responsibilities || []).map((r) => (
                           <li key={r} style={{ fontSize: "0.9rem", color: "var(--color-gray-mid)", lineHeight: 1.8, marginBottom: "0.35rem" }}>
                             {r}
                           </li>

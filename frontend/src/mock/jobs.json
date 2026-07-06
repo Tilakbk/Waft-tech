@@ -1,38 +1,58 @@
 [
   {
     "id": "1",
+    "slug": "frontend-developer",
     "title": "Frontend Developer",
     "department": "Engineering",
     "location": "Kathmandu, Nepal",
+    "remote": false,
     "type": "Full-time",
     "description": "We are looking for a skilled Frontend Developer with experience in React and Next.js to join our growing team.",
-    "open": true
+    "postedDate": "2026-06-01",
+    "open": true,
+    "responsibilities": ["Build responsive UI components using React and Next.js", "Collaborate with designers to implement pixel-perfect interfaces", "Write clean, maintainable, and well-documented code", "Participate in code reviews and team discussions"],
+    "requirements": ["2+ years of experience with React", "Strong understanding of TypeScript", "Experience with Tailwind CSS or similar", "Good communication skills"]
   },
   {
     "id": "2",
+    "slug": "ui-ux-designer",
     "title": "UI/UX Designer",
     "department": "Design",
     "location": "Kathmandu, Nepal",
+    "remote": false,
     "type": "Full-time",
     "description": "Join our design team to create beautiful, user-centered digital experiences for our clients.",
-    "open": true
+    "postedDate": "2026-06-05",
+    "open": true,
+    "responsibilities": ["Design wireframes, prototypes, and high-fidelity mockups", "Conduct user research and usability testing", "Maintain and evolve the design system", "Collaborate closely with developers during implementation"],
+    "requirements": ["2+ years of UI/UX design experience", "Proficiency in Figma", "Strong portfolio demonstrating product design", "Understanding of accessibility standards"]
   },
   {
     "id": "3",
+    "slug": "backend-engineer",
     "title": "Backend Engineer",
     "department": "Engineering",
     "location": "Remote",
+    "remote": true,
     "type": "Full-time",
     "description": "We need a strong Java/Spring Boot engineer to build and maintain our backend systems.",
-    "open": true
+    "postedDate": "2026-06-10",
+    "open": true,
+    "responsibilities": ["Design and build RESTful APIs using Spring Boot", "Write unit and integration tests", "Manage database schemas and migrations with Flyway", "Collaborate with frontend team on API contracts"],
+    "requirements": ["3+ years of Java/Spring Boot experience", "Familiarity with MySQL or PostgreSQL", "Experience with Docker and CI/CD pipelines", "Strong problem-solving skills"]
   },
   {
     "id": "4",
+    "slug": "project-manager",
     "title": "Project Manager",
     "department": "Operations",
     "location": "Kathmandu, Nepal",
+    "remote": false,
     "type": "Full-time",
     "description": "Lead client projects from discovery to delivery, coordinating between teams and stakeholders.",
-    "open": false
+    "postedDate": "2026-05-20",
+    "open": false,
+    "responsibilities": ["Manage project timelines, budgets, and deliverables", "Serve as the primary point of contact for clients", "Facilitate daily standups and sprint planning", "Identify and mitigate project risks"],
+    "requirements": ["3+ years of project management experience", "Experience with Agile/Scrum methodologies", "Excellent communication and leadership skills", "Familiarity with tools like Jira or Notion"]
   }
 ]
