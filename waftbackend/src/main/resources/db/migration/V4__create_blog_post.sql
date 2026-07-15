@@ -1,0 +1,5 @@
+CREATE TABLE blog_post(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(500) NOT NULL ,
+
+)
