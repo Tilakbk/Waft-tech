@@ -1,13 +1,12 @@
 
-CREATE TABLE trusted_brand(
+CREATE TABLE tech_stack(
     id BIGINT AUTO_INCREMENT PRIMARY KEY ,
-    name VARCHAR(150) NOT NULL ,
+    name VARCHAR(100) NOT NULL ,
     logo_url VARCHAR(500) NOT NULL ,
-    website_url VARCHAR(500) ,
+    category VARCHAR(50) ,
     created_by_id BIGINT NOT NULL ,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_trusted_brands_created_by_id FOREIGN KEY (created_by_id) REFERENCES waft_user(id) ON DELETE RESTRICT
-
+    CONSTRAINT fk_tech_stack_created_by FOREIGN KEY (created_by_id) REFERENCES waft_user(id) ON DELETE RESTRICT
 )
