@@ -1,1 +1,11 @@
 
+CREATE TABLE project_image(
+    id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY ,
+    project_id BIGINT NOT NULL ,
+    image_url VARCHAR(500) NOT NULL ,
+    sort_order int NOT NULL DEFAULT 0,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_project_id FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE
+
+)
