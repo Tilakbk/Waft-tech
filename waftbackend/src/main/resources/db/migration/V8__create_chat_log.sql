@@ -1,0 +1,8 @@
+
+CREATE TABLE chat_log(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    page VARCHAR(100) NOT NULL ,
+    messages JSON NOT NULL ,
+    ip_address VARCHAR(45),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
