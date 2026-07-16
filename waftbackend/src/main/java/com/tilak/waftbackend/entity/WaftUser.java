@@ -12,9 +12,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-
-
-
 @Entity
 @Table(name = "waft_user")
 @Getter
@@ -59,7 +56,7 @@ public class WaftUser {
     @Column(name = "updated_at",nullable = false)
     private LocalDateTime  updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch =FetchType.LAZY)
     @JoinColumn(name = "created_by_id")
     private WaftUser createdBy;
 
