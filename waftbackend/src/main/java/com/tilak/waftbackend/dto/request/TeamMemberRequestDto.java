@@ -1,4 +1,4 @@
-package com.tilak.waftbackend.dto;
+package com.tilak.waftbackend.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateTeamMemberWaftUserDto {
+public class TeamMemberRequestDto {
 
     @NotBlank(message = "Photo is req")
     private String photo;

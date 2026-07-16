@@ -1,4 +1,4 @@
-package com.tilak.waftbackend.dto;
+package com.tilak.waftbackend.dto.request;
 
 import com.tilak.waftbackend.enums.Role;
 import jakarta.validation.constraints.Email;
