@@ -16,7 +16,6 @@ public class WaftUserResponseDto {
     private Role role;
     private Boolean isActive;
     private LocalDateTime createdAt;
-    private String createdBy;
 
     private String photo;
     private String bio;
