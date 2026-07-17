@@ -3,6 +3,7 @@ package com.tilak.waftbackend.dto.request;
 import com.tilak.waftbackend.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,7 @@ public class CreateWaftUserRequestDto {
     @NotBlank(message = "password is must")
     private String password;
 
-    @NotBlank(message = "Role is must")
+    @NotNull(message = "Role is must")
     private Role role;
 
 

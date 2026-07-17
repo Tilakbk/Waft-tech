@@ -37,6 +37,7 @@ public class WaftUser {
     @Column(nullable = false)
     private Role role;
 
+    @Builder.Default
     @Column(name = "is_active",nullable = false)
     private Boolean isActive=true;
 
