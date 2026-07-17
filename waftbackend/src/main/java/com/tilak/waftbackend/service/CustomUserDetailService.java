@@ -24,7 +24,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
         log.info("Attempting load principal user from the database by email:{}",email) ;
         PrincipalUser user= waftUserRepo.findByEmail(email).map(PrincipalUser::new).orElseThrow(()->new UsernameNotFoundException("User with this email not found"+email));
-        log.warn("User successfully loaded with the mentioned email and role:{} and :{}",email,user.getWaftUser().getRole());
+        log.info("User successfully loaded with the mentioned email and role:{} and :{}",email,user.getWaftUser().getRole());
         return user;
 
     }
