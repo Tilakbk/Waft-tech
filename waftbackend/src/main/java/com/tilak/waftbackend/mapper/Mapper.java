@@ -11,7 +11,6 @@ public class Mapper {
         return WaftUser.builder()
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
-                .passwordHash(requestDto.getPassword())
                 .role(requestDto.getRole())
                 .build();
     }
