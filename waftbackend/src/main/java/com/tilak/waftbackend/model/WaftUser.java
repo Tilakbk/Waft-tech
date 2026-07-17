@@ -1,4 +1,4 @@
-package com.tilak.waftbackend.entity;
+package com.tilak.waftbackend.model;
 
 import com.tilak.waftbackend.enums.Role;
 import jakarta.persistence.*;

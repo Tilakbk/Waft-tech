@@ -1,6 +1,6 @@
 package com.tilak.waftbackend.repository;
 
-import com.tilak.waftbackend.entity.WaftUser;
+import com.tilak.waftbackend.model.WaftUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

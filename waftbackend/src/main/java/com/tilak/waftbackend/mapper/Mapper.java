@@ -2,7 +2,7 @@ package com.tilak.waftbackend.mapper;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
-import com.tilak.waftbackend.entity.WaftUser;
+import com.tilak.waftbackend.model.WaftUser;
 
 public class Mapper {
 
