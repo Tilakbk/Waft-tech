@@ -71,7 +71,7 @@ public class JwtService {
 
     }
 
-    private String extractName(String token) {
+    public String extractName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
