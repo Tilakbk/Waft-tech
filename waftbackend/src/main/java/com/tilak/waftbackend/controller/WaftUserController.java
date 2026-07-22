@@ -2,7 +2,7 @@ package com.tilak.waftbackend.controller;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.request.LoginRequestDto;
-import com.tilak.waftbackend.dto.response.AuthResponseDto;
+import com.tilak.waftbackend.dto.response.LoginResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
 import com.tilak.waftbackend.service.WaftUserService;
 import jakarta.validation.Valid;
@@ -27,7 +27,7 @@ public class WaftUserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> userLogin(@Valid @RequestBody LoginRequestDto loginDto){
+    public ResponseEntity<LoginResponseDto> userLogin(@Valid @RequestBody LoginRequestDto loginDto){
 
         return ResponseEntity.ok(waftUserService.userLogin(loginDto));
 

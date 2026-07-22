@@ -3,6 +3,7 @@ package com.tilak.waftbackend.service;
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.request.LoginRequestDto;
 import com.tilak.waftbackend.dto.response.AuthResponseDto;
+import com.tilak.waftbackend.dto.response.LoginResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
 import com.tilak.waftbackend.enums.Role;
 import com.tilak.waftbackend.exception.AdderNotFoundException;
@@ -48,7 +49,7 @@ public class WaftUserService {
     }
 
     @Transactional(readOnly = true)
-    public AuthResponseDto userLogin(LoginRequestDto loginDto) {
+    public LoginResponseDto userLogin(LoginRequestDto loginDto) {
 
 
 
