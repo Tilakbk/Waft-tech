@@ -43,6 +43,7 @@ public class WaftUserService {
             WaftUser newUser= Mapper.toWaftUser(requestDto);
             newUser.setRole(Role.HR);
             newUser.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
+            newUser.setCreatedBy(adder);
             return Mapper.toWaftUserResponseDto(waftUserRepo.save(newUser));
         }
 
@@ -50,6 +51,7 @@ public class WaftUserService {
             WaftUser newUser= Mapper.toWaftUser(requestDto);
             newUser.setRole(Role.TEAM_MEMBER);
             newUser.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
+            newUser.setCreatedBy(adder);
             return Mapper.toWaftUserResponseDto(waftUserRepo.save(newUser));
         }
         else
