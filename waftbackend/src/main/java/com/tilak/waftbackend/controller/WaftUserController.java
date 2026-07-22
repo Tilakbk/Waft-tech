@@ -7,10 +7,8 @@ import com.tilak.waftbackend.service.WaftUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -19,10 +17,11 @@ public class WaftUserController {
 
     private final WaftUserService waftUserService;
 
-    @PostMapping("/register")
-    public ResponseEntity<WaftUserResponseDto> addNewUser(@Valid @RequestBody CreateWaftUserRequestDto requestDto)
+    @PreAuthorize("hasRole('ADMIN ' || 'HR')")
+    @PostMapping("/register/${adderId}")
+    public ResponseEntity<WaftUserResponseDto> addNewUser(@PathVariable Long id, @Valid @RequestBody CreateWaftUserRequestDto requestDto)
     {
-        return ResponseEntity.ok(waftUserService.addNewUser(requestDto));
+        return ResponseEntity.ok(waftUserService.addNewUser( id,requestDto));
     }
 
     @PostMapping("/login")
