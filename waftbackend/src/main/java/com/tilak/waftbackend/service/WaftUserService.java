@@ -3,7 +3,9 @@ package com.tilak.waftbackend.service;
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.request.LoginRequestDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
+import com.tilak.waftbackend.enums.Role;
 import com.tilak.waftbackend.exception.AdderNotFoundException;
+import com.tilak.waftbackend.exception.UserNotAuthenticatedException;
 import com.tilak.waftbackend.model.PrincipalUser;
 import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.mapper.Mapper;
@@ -25,16 +27,28 @@ public class WaftUserService {
     public WaftUserResponseDto addNewUser(Long id,CreateWaftUserRequestDto requestDto) {
 
         WaftUser adder= waftUserRepo.findById(id).orElseThrow(()->new AdderNotFoundException("User with this id is not found, id: "+id));
-        WaftUser newUser= Mapper.toWaftUser(requestDto);
-        newUser.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
 
-        return Mapper.toWaftUserResponseDto(waftUserRepo.save(newUser));
+        if (adder.getRole().toString().equals("ADMIN") && requestDto.getRole().toString().equals("HR")){
+            WaftUser newUser= Mapper.toWaftUser(requestDto);
+            newUser.setRole(Role.HR);
+            newUser.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
+            return Mapper.toWaftUserResponseDto(waftUserRepo.save(newUser));
+        }
 
+        else if (adder.getRole().toString().equals("HR") && requestDto.getRole().toString().equals("TEAM_MEMBER")){
+            WaftUser newUser= Mapper.toWaftUser(requestDto);
+            newUser.setRole(Role.TEAM_MEMBER);
+            newUser.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
+            return Mapper.toWaftUserResponseDto(waftUserRepo.save(newUser));
+        }
+        else
+            throw new UserNotAuthenticatedException("The user "+ adder.getName() +"with id:"+id+" is not authenticated to perform the action");
     }
 
     public String userLogin(LoginRequestDto loginDto) {
 
        UserDetails userDetails= customUserDetailService.loadUserByUsername(loginDto.getEmail());
+       return null;
 
     }
 }

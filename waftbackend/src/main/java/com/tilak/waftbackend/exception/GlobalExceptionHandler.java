@@ -21,9 +21,28 @@ public class GlobalExceptionHandler {
         List<ApiErrorDto> apiErrorDto= e.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(error-> new ApiErrorDto(HttpStatus.BAD_REQUEST.value(),"Validation Failed",error.getDefaultMessage(),request.getContextPath(),error.getField())).toList();
+                .map(error-> new ApiErrorDto(
+                        HttpStatus.BAD_REQUEST.value(),
+                        "Validation Failed",
+                        error.getDefaultMessage(),
+                        request.getContextPath(),
+                        error.getField()
+                )).toList();
 
         return ResponseEntity.badRequest().body(apiErrorDto);
 
     }
+
+    @ExceptionHandler(AdderNotFoundException.class)
+    public ResponseEntity<ApiErrorDto> handleAdderNotFoundException(AdderNotFoundException e, HttpServletRequest request){
+
+        log.debug("Not found:{}",e.getMessage());
+
+        ApiErrorDto apiErrorDto= new ApiErrorDto(HttpStatus.NOT_FOUND.value(), "User Not Found",e.getMessage(),request.getContextPath());
+
+        return ResponseEntity.badRequest().body(apiErrorDto);
+
+    }
+
+
 }
