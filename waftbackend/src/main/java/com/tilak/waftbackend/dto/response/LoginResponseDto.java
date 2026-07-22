@@ -8,10 +8,11 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class LoginResponseDto {
 
     private String token;
     private String role;
     private String fullName;
-    private UUID userId;
+    private Long userId;
 }

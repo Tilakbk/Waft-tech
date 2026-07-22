@@ -2,28 +2,36 @@ package com.tilak.waftbackend.service;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.request.LoginRequestDto;
-import com.tilak.waftbackend.dto.response.AuthResponseDto;
 import com.tilak.waftbackend.dto.response.LoginResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
 import com.tilak.waftbackend.enums.Role;
 import com.tilak.waftbackend.exception.AdderNotFoundException;
+import com.tilak.waftbackend.exception.IllegalStateFoundException;
 import com.tilak.waftbackend.exception.UserNotPermittedException;
+import com.tilak.waftbackend.jwt.JwtService;
+import com.tilak.waftbackend.model.PrincipalUser;
 import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.repository.WaftUserRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class WaftUserService {
 
     private final WaftUserRepo waftUserRepo;
     private final PasswordEncoder passwordEncoder;
-    private final CustomUserDetailService customUserDetailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
 
     @Transactional
@@ -31,14 +39,14 @@ public class WaftUserService {
 
         WaftUser adder= waftUserRepo.findById(id).orElseThrow(()->new AdderNotFoundException("User with this id is not found, id: "+id));
 
-        if (adder.getRole().toString().equals("ADMIN") && requestDto.getRole().toString().equals("HR")){
+        if (adder.getRole().name().equals("ADMIN") && requestDto.getRole().name().equals("HR")){
             WaftUser newUser= Mapper.toWaftUser(requestDto);
             newUser.setRole(Role.HR);
             newUser.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
             return Mapper.toWaftUserResponseDto(waftUserRepo.save(newUser));
         }
 
-        else if (adder.getRole().toString().equals("HR") && requestDto.getRole().toString().equals("TEAM_MEMBER")){
+        else if (adder.getRole().name().equals("HR") && requestDto.getRole().name().equals("TEAM_MEMBER")){
             WaftUser newUser= Mapper.toWaftUser(requestDto);
             newUser.setRole(Role.TEAM_MEMBER);
             newUser.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
@@ -51,6 +59,18 @@ public class WaftUserService {
     @Transactional(readOnly = true)
     public LoginResponseDto userLogin(LoginRequestDto loginDto) {
 
+        log.debug("Attempting to login using : {}",loginDto.getEmail());
+
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(),loginDto.getPassword()));
+
+        WaftUser authenticatedUser= waftUserRepo.findByEmail(loginDto.getEmail()).orElseThrow(()-> new IllegalStateFoundException(loginDto.getEmail()+" Authenticated user with this email is not in db"));
+
+        HashMap<String, Object> extraClaim= new HashMap<>();
+        extraClaim.put("role",authenticatedUser.getRole().name());
+        LoginResponseDto loginResponseDto = Mapper.toResponseDto(authenticatedUser);
+        loginResponseDto.setToken(jwtService.generateToken(extraClaim,new PrincipalUser(authenticatedUser)));
+
+        return loginResponseDto;
 
 
     }

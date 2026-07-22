@@ -1,6 +1,7 @@
 package com.tilak.waftbackend.mapper;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
+import com.tilak.waftbackend.dto.response.LoginResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
 import com.tilak.waftbackend.model.WaftUser;
 
@@ -43,4 +44,13 @@ public class Mapper {
 
     }
 
+    public static LoginResponseDto toResponseDto(WaftUser authenticatedUser) {
+
+        return LoginResponseDto.builder()
+                .fullName(authenticatedUser.getName())
+                .role(authenticatedUser.getRole().name())
+                .userId(authenticatedUser.getId())
+                .build();
+
+    }
 }
