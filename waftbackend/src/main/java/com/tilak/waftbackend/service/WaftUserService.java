@@ -2,11 +2,11 @@ package com.tilak.waftbackend.service;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.request.LoginRequestDto;
+import com.tilak.waftbackend.dto.response.AuthResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
 import com.tilak.waftbackend.enums.Role;
 import com.tilak.waftbackend.exception.AdderNotFoundException;
-import com.tilak.waftbackend.exception.UserNotAuthenticatedException;
-import com.tilak.waftbackend.model.PrincipalUser;
+import com.tilak.waftbackend.exception.UserNotPermittedException;
 import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.repository.WaftUserRepo;
@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class WaftUserService {
     private final CustomUserDetailService customUserDetailService;
 
 
+    @Transactional
     public WaftUserResponseDto addNewUser(Long id,CreateWaftUserRequestDto requestDto) {
 
         WaftUser adder= waftUserRepo.findById(id).orElseThrow(()->new AdderNotFoundException("User with this id is not found, id: "+id));
@@ -42,13 +44,13 @@ public class WaftUserService {
             return Mapper.toWaftUserResponseDto(waftUserRepo.save(newUser));
         }
         else
-            throw new UserNotAuthenticatedException("The user "+ adder.getName() +"with id:"+id+" is not authenticated to perform the action");
+            throw new UserNotPermittedException("The user "+ adder.getName() +"with id:"+id+" is not authenticated to perform the action");
     }
 
-    public String userLogin(LoginRequestDto loginDto) {
+    @Transactional(readOnly = true)
+    public AuthResponseDto userLogin(LoginRequestDto loginDto) {
 
-       UserDetails userDetails= customUserDetailService.loadUserByUsername(loginDto.getEmail());
-       return null;
+
 
     }
 }
