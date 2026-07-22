@@ -1,6 +1,7 @@
 package com.tilak.waftbackend.service;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
+import com.tilak.waftbackend.dto.request.LoginRequestDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
 import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.mapper.Mapper;
@@ -24,6 +25,10 @@ public class WaftUserService {
         newUser.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
 
         return Mapper.toWaftUserResponseDto(waftUserRepo.save(newUser));
+
+    }
+
+    public String userLogin(LoginRequestDto loginDto) {
 
     }
 }
