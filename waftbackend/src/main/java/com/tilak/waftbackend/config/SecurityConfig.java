@@ -3,13 +3,10 @@ package com.tilak.waftbackend.config;
 import com.tilak.waftbackend.jwt.JwtAccessDeniedHandler;
 import com.tilak.waftbackend.jwt.JwtAuthenticationEntryPoint;
 import com.tilak.waftbackend.jwt.JwtAuthenticationFilter;
-import com.tilak.waftbackend.jwt.JwtService;
-import jakarta.servlet.http.HttpServlet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -70,7 +67,9 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(List.of("Authorization",
                 "Content-Type",
                 "Accept",
-                "X-Requested-With"));
+                "X-Requested-With",
+                "Cookie"));
+        configuration.setExposedHeaders(List.of("Set-Cookie"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source= new UrlBasedCorsConfigurationSource();

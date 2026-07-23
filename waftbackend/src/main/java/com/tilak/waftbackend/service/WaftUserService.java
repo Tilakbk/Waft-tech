@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,21 +60,17 @@ public class WaftUserService {
     }
 
     @Transactional(readOnly = true)
-    public LoginResponseDto userLogin(LoginRequestDto loginDto) {
+    public String userLogin(LoginRequestDto loginDto) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginDto.getEmail(),
+                        loginDto.getPassword()
+                )
+        );
 
-        log.debug("Attempting to login using : {}",loginDto.getEmail());
-
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(),loginDto.getPassword()));
-
-        WaftUser authenticatedUser= waftUserRepo.findByEmail(loginDto.getEmail()).orElseThrow(()-> new IllegalStateFoundException(loginDto.getEmail()+" Authenticated user with this email is not in db"));
-
+        PrincipalUser principal = (PrincipalUser) authentication.getPrincipal();
         HashMap<String, Object> extraClaim= new HashMap<>();
-        extraClaim.put("role",authenticatedUser.getRole().name());
-        LoginResponseDto loginResponseDto = Mapper.toResponseDto(authenticatedUser);
-        loginResponseDto.setToken(jwtService.generateToken(extraClaim,new PrincipalUser(authenticatedUser)));
-
-        return loginResponseDto;
-
-
+        extraClaim.put("role",principal.getWaftUser().getRole().name());
+        return jwtService.generateToken(extraClaim,principal);
     }
 }

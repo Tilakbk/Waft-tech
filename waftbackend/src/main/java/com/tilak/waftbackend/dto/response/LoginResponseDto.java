@@ -10,8 +10,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class LoginResponseDto {
-
-    private String token;
     private String role;
     private String fullName;
     private Long userId;

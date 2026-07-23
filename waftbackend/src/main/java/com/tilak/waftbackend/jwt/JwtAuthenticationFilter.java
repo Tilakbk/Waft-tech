@@ -3,6 +3,7 @@ package com.tilak.waftbackend.jwt;
 import com.tilak.waftbackend.service.CustomUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,16 +29,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-        String requestURI= request.getRequestURI();
-        String header= request.getHeader("Authorization");
 
-        if (header==null || !header.startsWith("Bearer ")){
-            log.debug("No token in requestURI, {}",requestURI);
-            filterChain.doFilter(request,response);
+
+        String jwtToken = null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("jwt".equals(cookie.getName())) {
+                    jwtToken = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        if (jwtToken == null) {
+            log.debug("No JWT cookie found in request URI: {}", request.getRequestURI());
+            filterChain.doFilter(request, response);
             return;
         }
 
-        String jwtToken= header.substring(7);
         final String email;
 
         try{
@@ -59,7 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                log.info("User {} successfully authenticated for uri {}",email,requestURI);
+                log.info("User {} successfully authenticated for uri {}",email,request.getRequestURI());
             }
 
             else
