@@ -63,7 +63,7 @@ public class WaftUserController {
                     + "to be used as a Bearer token on subsequent requests."
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Login successful, JWT returned"),
+            @ApiResponse(responseCode = "200", description = "Login successful, JWT returned in browser cookie"),
             @ApiResponse(responseCode = "401", description = "Invalid email or password"),
             @ApiResponse(responseCode = "400", description = "Validation failed on request body")
     })
@@ -95,5 +95,39 @@ public class WaftUserController {
 
         return ResponseEntity.ok(responseDto);
     }
+
+    @Operation(
+            summary = "Log out",
+            description = "Clears the JWT cookie, effectively logging out the authenticated user."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Logout successful, JWT cookie cleared"),
+            @ApiResponse(responseCode = "401", description = "User is not authenticated")
+    })
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .sameSite("Lax")
+                .path("/")
+                .maxAge(0)
+                .secure(false)
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        return ResponseEntity.ok().build();
+    }
+
+
+    @GetMapping("/me")
+    public ResponseEntity<LoginResponseDto> getCurrentUser(Authentication authentication) {
+        PrincipalUser principal = (PrincipalUser) authentication.getPrincipal();
+        return ResponseEntity.ok(LoginResponseDto.builder()
+                .fullName(principal.getWaftUser().getName())
+                .role(principal.getWaftUser().getRole().name())
+                .userId(principal.getWaftUser().getId())
+                .build());
+    }
+
 
 }
