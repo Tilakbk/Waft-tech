@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import AdminSidebar from "@/components/layout/AdminSidebar";
-import { isAuthenticated } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -12,15 +12,31 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const isLoginPage = pathname === "/admin/login";
 
   useEffect(() => {
-    if (isLoginPage) {
-      setChecked(true);
-      return;
+    let cancelled = false;
+
+    async function checkAuth() {
+      if (isLoginPage) {
+        if (!cancelled) setChecked(true);
+        return;
+      }
+
+      const user = await getCurrentUser();
+
+      if (cancelled) return;
+
+      if (!user) {
+        router.replace("/admin/login");
+      } else {
+        setChecked(true);
+      }
     }
-    if (!isAuthenticated()) {
-      router.replace("/admin/login");
-    } else {
-      setChecked(true);
-    }
+
+    setChecked(false);
+    checkAuth();
+
+    return () => {
+      cancelled = true;
+    };
   }, [pathname, isLoginPage, router]);
 
   if (isLoginPage) {

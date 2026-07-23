@@ -10,14 +10,20 @@ export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = login(email, password);
-    if (success) {
+    setError(null);
+    setIsSubmitting(true);
+
+    const result = await login(email, password);
+    setIsSubmitting(false);
+
+    if (result.success) {
       router.push("/admin/dashboard");
     } else {
-      setError("Invalid email or password.");
+      setError(result.error || "Invalid email or password.");
     }
   };
 
@@ -72,6 +78,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="admin@wafttech.io"
               required
+              disabled={isSubmitting}
               style={{
                 width: "100%",
                 padding: "0.75rem 1rem",
@@ -94,6 +101,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               required
+              disabled={isSubmitting}
               style={{
                 width: "100%",
                 padding: "0.75rem 1rem",
@@ -112,29 +120,24 @@ export default function AdminLoginPage() {
 
           <button
             type="submit"
+            disabled={isSubmitting}
             style={{
               width: "100%",
               fontFamily: "var(--font-body)",
               fontSize: "0.95rem",
               fontWeight: 500,
               color: "#ffffff",
-              backgroundColor: "var(--color-black)",
+              backgroundColor: isSubmitting ? "var(--color-gray-light)" : "var(--color-black)",
               padding: "0.85rem 2rem",
               borderRadius: "var(--radius-full)",
               border: "none",
-              cursor: "pointer",
+              cursor: isSubmitting ? "not-allowed" : "pointer",
               transition: "background-color 150ms ease",
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-brand-teal)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-black)"; }}
           >
-            Sign in
+            {isSubmitting ? "Signing in..." : "Sign in"}
           </button>
         </form>
-
-        <p style={{ fontSize: "0.75rem", color: "var(--color-gray-light)", marginTop: "1.5rem", textAlign: "center" }}>
-          Demo credentials: admin@wafttech.io / admin123
-        </p>
       </div>
     </div>
   );

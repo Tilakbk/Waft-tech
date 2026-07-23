@@ -1,27 +1,46 @@
-const AUTH_KEY = "waft_admin_auth";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// Mock credentials for demo purposes only.
-// This will be replaced by real JWT-based auth once the Spring Boot backend is live.
-const MOCK_EMAIL = "admin@wafttech.io";
-const MOCK_PASSWORD = "admin123";
+export interface AdminUser {
+    userId: number;
+    fullName: string;
+    role: string;
+}
 
-export function login(email: string, password: string): boolean {
-  if (email === MOCK_EMAIL && password === MOCK_PASSWORD) {
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(AUTH_KEY, "true");
+export async function login(email: string, password: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
+            body: JSON.stringify({email, password}),
+        });
+
+        if (!response.ok) {
+            const error = await response.json().catch(() => null);
+            return {success: false, error: error?.message || "Invalid email or password."};
+        }
+
+        return {success: true};
+    } catch {
+        return {success: false, error: "Could not reach the server."};
     }
-    return true;
-  }
-  return false;
 }
 
-export function logout(): void {
-  if (typeof window !== "undefined") {
-    window.localStorage.removeItem(AUTH_KEY);
-  }
+export async function logout(): Promise<void> {
+    await fetch(`${API_URL}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+    });
 }
 
-export function isAuthenticated(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.localStorage.getItem(AUTH_KEY) === "true";
+export async function getCurrentUser(): Promise<AdminUser | null> {
+    try {
+        const response = await fetch(`${API_URL}/api/auth/me`, {
+            credentials: "include",
+        });
+        if (!response.ok) return null;
+        return response.json();
+    } catch {
+        return null;
+    }
 }

@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { LayoutDashboard, Briefcase, FileText, Users, Building2, Mail, UserSquare2, MessageSquare, Star, Layers, LogOut } from "lucide-react";
 import { logout } from "@/lib/auth";
 
-
 const navItems = [
   { label: "Dashboard", href: "/admin/dashboard", Icon: LayoutDashboard },
   { label: "Projects", href: "/admin/projects", Icon: Briefcase },
@@ -23,8 +22,8 @@ export default function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     router.push("/admin/login");
   };
 
