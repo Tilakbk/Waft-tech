@@ -22,8 +22,10 @@ public class ProjectController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/projects")
-    public ResponseEntity<ProjectResponseDto> addProjects(@Valid @RequestBody ProjectRequestDto projectRequestDto)
+    public ResponseEntity<ProjectResponseDto> addProjects(@Valid @RequestBody ProjectRequestDto projectRequestDto){
+        return null;
 
+    }
 
 
 }
