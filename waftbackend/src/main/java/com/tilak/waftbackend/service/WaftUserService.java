@@ -2,6 +2,7 @@ package com.tilak.waftbackend.service;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.request.LoginRequestDto;
+import com.tilak.waftbackend.dto.request.TeamMemberRequestDto;
 import com.tilak.waftbackend.dto.response.LoginResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
 import com.tilak.waftbackend.enums.Role;
@@ -72,5 +73,15 @@ public class WaftUserService {
         HashMap<String, Object> extraClaim= new HashMap<>();
         extraClaim.put("role",principal.getWaftUser().getRole().name());
         return jwtService.generateToken(extraClaim,principal);
+    }
+
+    public LoginResponseDto teamMemberProfileUpdate(Long id,TeamMemberRequestDto teamMemberRequestDto) {
+
+        WaftUser adder= waftUserRepo.findById(id).orElseThrow(()->new IllegalStateFoundException("User with this id is not found, id: "+id));
+        adder.setPhoto(teamMemberRequestDto.getPhoto());
+        adder.setBio(teamMemberRequestDto.getBio());
+        adder.setRoleTitle(teamMemberRequestDto.getRoleTitle());
+        return Mapper.toResponseDtoForTeamMember(waftUserRepo.save(adder));
+
     }
 }

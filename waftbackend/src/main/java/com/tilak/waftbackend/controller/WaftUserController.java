@@ -2,9 +2,12 @@ package com.tilak.waftbackend.controller;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.request.LoginRequestDto;
+import com.tilak.waftbackend.dto.request.TeamMemberRequestDto;
 import com.tilak.waftbackend.dto.response.LoginResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
+import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.model.PrincipalUser;
+import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.service.CustomUserDetailService;
 import com.tilak.waftbackend.service.WaftUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -122,11 +126,28 @@ public class WaftUserController {
     @GetMapping("/me")
     public ResponseEntity<LoginResponseDto> getCurrentUser(Authentication authentication) {
         PrincipalUser principal = (PrincipalUser) authentication.getPrincipal();
-        return ResponseEntity.ok(LoginResponseDto.builder()
-                .fullName(principal.getWaftUser().getName())
-                .role(principal.getWaftUser().getRole().name())
-                .userId(principal.getWaftUser().getId())
-                .build());
+        return ResponseEntity.ok(Mapper.toResponseDtoForTeamMember(principal.getWaftUser()));
+    }
+
+    @Operation(
+            summary = "Complete Team Member profile",
+            description = "Allows an authenticated TEAM_MEMBER to fill in their public-facing "
+                    + "profile fields (photo, bio, role title). Restricted to TEAM_MEMBER role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Profile updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Validation failed on request body"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "User is not a TEAM_MEMBER")
+    })
+    @PreAuthorize("hasRole('TEAM_MEMBER')")
+    @PutMapping("/profile")
+    public ResponseEntity<LoginResponseDto> teamMemberProfileUpdate(@Valid @RequestBody TeamMemberRequestDto teamMemberRequestDto,Authentication authentication){
+        PrincipalUser principal= (PrincipalUser) authentication.getPrincipal();
+        WaftUser user= principal.getWaftUser();
+
+        return ResponseEntity.ok(waftUserService.teamMemberProfileUpdate(user.getId(),teamMemberRequestDto));
+
     }
 
 

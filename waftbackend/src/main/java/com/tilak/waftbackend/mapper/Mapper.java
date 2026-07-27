@@ -53,4 +53,18 @@ public class Mapper {
                 .build();
 
     }
+
+    public static LoginResponseDto toResponseDtoForTeamMember(WaftUser authenticatedUser) {
+
+        return LoginResponseDto.builder()
+                .fullName(authenticatedUser.getName())
+                .role(authenticatedUser.getRole().name())
+                .userId(authenticatedUser.getId())
+                .bio(authenticatedUser.getBio())
+                .photo(authenticatedUser.getPhoto())
+                .roleTitle(authenticatedUser.getRoleTitle())
+                .build();
+
+    }
+
 }
