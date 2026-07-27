@@ -2,6 +2,7 @@ package com.tilak.waftbackend.model;
 
 import com.tilak.waftbackend.record.SolutionItem;
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,6 +16,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "project")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Project {
 
     @Id
@@ -38,11 +44,9 @@ public class Project {
     private String heroImage;
 
     private LocalDate date;
-
-    @Column(nullable = false)
     private String brief;
 
-    @Column(name= "problem_statement",nullable = false)
+    @Column(name= "problem_statement")
     private String problemStatement;
 
     @JdbcTypeCode(SqlTypes.JSON)
