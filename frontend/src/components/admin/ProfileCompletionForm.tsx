@@ -63,7 +63,7 @@ export default function ProfileCompletionForm({ fullName, onComplete }: ProfileC
               type="text"
               value={photo}
               onChange={(e) => setPhoto(e.target.value)}
-              placeholder="/images/team/your-photo.jpg"
+              placeholder="Paste a link to your photo (e.g. from LinkedIn, Imgur, or Google Drive)"
               required
               disabled={isSubmitting}
               style={{
