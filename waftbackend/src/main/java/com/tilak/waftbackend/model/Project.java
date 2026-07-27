@@ -27,7 +27,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String slug;
 
     @Column(nullable = false)
@@ -60,6 +60,7 @@ public class Project {
     @Column(name = "final_thought")
     private String finalThought;
 
+    @Builder.Default
     @Column(name = "is_published")
     private Boolean isPublished=true;
 

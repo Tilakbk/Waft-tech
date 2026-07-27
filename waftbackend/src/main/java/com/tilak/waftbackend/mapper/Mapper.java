@@ -1,9 +1,15 @@
 package com.tilak.waftbackend.mapper;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
+import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.response.LoginResponseDto;
+import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
+import com.tilak.waftbackend.model.Project;
+import com.tilak.waftbackend.model.ProjectImage;
 import com.tilak.waftbackend.model.WaftUser;
+
+import java.util.List;
 
 public class Mapper {
 
@@ -66,5 +72,44 @@ public class Mapper {
                 .build();
 
     }
+
+    public static Project toProject(ProjectRequestDto requestDto){
+
+        return Project.builder()
+                .title(requestDto.getTitle())
+                .brief(requestDto.getBrief())
+                .date(requestDto.getDate())
+                .heroImage(requestDto.getHeroImageUrl())
+                .finalThought(requestDto.getFinalThought())
+                .result(requestDto.getResults())
+                .tags(requestDto.getTags())
+                .thumbNail(requestDto.getThumbnailUrl())
+                .solution(requestDto.getSolutions())
+                .problemStatement(requestDto.getProblemStatement())
+                .build();
+    }
+
+    public static ProjectResponseDto toProjectResponseDto(Project project){
+        return ProjectResponseDto.builder()
+                .title(project.getTitle())
+                .thumbnailUrl(project.getThumbNail())
+                .problemStatement(project.getProblemStatement())
+                .date(project.getDate())
+                .tags(project.getTags())
+                .id(project.getId())
+                .slug(project.getSlug())
+                .createdByName(project.getCreatedBy().getName())
+                .brief(project.getBrief())
+                .isPublished(project.getIsPublished())
+                .results(project.getResult())
+                .finalThought(project.getFinalThought())
+                .updatedAt(project.getUpdatedAt())
+                .createdAt(project.getCreatedAt())
+                .heroImageUrl(project.getHeroImage())
+                .imageUrls(project.getProjectImages() == null ? List.of():project.getProjectImages().stream().map(ProjectImage::getImage).toList())
+                .solutions(project.getSolution())
+                .build();
+    }
+
 
 }

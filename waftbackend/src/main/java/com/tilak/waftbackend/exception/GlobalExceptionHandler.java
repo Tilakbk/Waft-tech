@@ -67,4 +67,13 @@ public class GlobalExceptionHandler {
         ApiErrorDto error = new ApiErrorDto(HttpStatus.UNAUTHORIZED.value(), "Authentication Failed", "Invalid email or password.", request.getRequestURI());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
+
+    @ExceptionHandler(DuplicateSlugException.class)
+    public ResponseEntity<ApiErrorDto> handleDuplicateSlugException(DuplicateSlugException e, HttpServletRequest request) {
+        log.warn("Duplicate slug: {}", e.getMessage());
+
+        ApiErrorDto apiErrorDto = new ApiErrorDto(HttpStatus.CONFLICT.value(), "Duplicate Slug", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiErrorDto);
+    }
 }

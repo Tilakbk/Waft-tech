@@ -2,6 +2,8 @@ package com.tilak.waftbackend.controller;
 
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
+import com.tilak.waftbackend.model.PrincipalUser;
+import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.repository.ProjectRepo;
 import com.tilak.waftbackend.service.ProjectService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,8 +25,10 @@ public class ProjectController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/projects")
-    public ResponseEntity<ProjectResponseDto> addProjects(@Valid @RequestBody ProjectRequestDto projectRequestDto){
-        return null;
+    public ResponseEntity<ProjectResponseDto> addProject(@Valid @RequestBody ProjectRequestDto projectRequestDto, Authentication authentication){
+        PrincipalUser user= (PrincipalUser) authentication.getPrincipal();
+        WaftUser waftUser= user.getWaftUser();
+        return ResponseEntity.ok(projectService.addProject(projectRequestDto, waftUser));
 
     }
 
