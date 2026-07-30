@@ -32,7 +32,6 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     private final JwtAccessDeniedHandler accessDeniedHandler;
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
