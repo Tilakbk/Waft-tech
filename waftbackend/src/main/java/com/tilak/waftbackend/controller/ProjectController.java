@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -66,7 +67,7 @@ public class ProjectController {
     })
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/projects/admin")
-    public ResponseEntity<Page<ProjectResponseDto>> getAllProject(@PageableDefault(size = 12, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable){
+    public ResponseEntity<Page<ProjectResponseDto>> getAllProject(@ParameterObject @PageableDefault(size = 12, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable){
         return ResponseEntity.ok(projectService.getAllProject(pageable));
     }
 
@@ -80,7 +81,7 @@ public class ProjectController {
             @ApiResponse(responseCode = "200", description = "Published projects retrieved successfully")
     })
     @GetMapping("/projects")
-    public ResponseEntity<Page<ProjectResponseDto>> getPublishedProject(@PageableDefault(size = 8,sort = "createdAt", direction = Sort.Direction.ASC)Pageable pageable){
+    public ResponseEntity<Page<ProjectResponseDto>> getPublishedProject(@ParameterObject @PageableDefault(size = 8,sort = "createdAt", direction = Sort.Direction.ASC)Pageable pageable){
         return ResponseEntity.ok(projectService.getPublishedProject(pageable));
     }
 
