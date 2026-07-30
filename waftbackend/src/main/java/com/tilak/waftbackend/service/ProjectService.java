@@ -8,8 +8,11 @@ import com.tilak.waftbackend.model.Project;
 import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.repository.ProjectRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,7 @@ public class ProjectService {
         }
         Project newProject= Mapper.toProject(projectRequestDto);
         newProject.setCreatedBy(waftUser);
+        newProject.setSlug(slug);
 
         return Mapper.toProjectResponseDto(projectRepo.save(newProject));
 
@@ -39,4 +43,20 @@ public class ProjectService {
                     .replaceAll("\\s+", "-");
         }
 
+    public Page<ProjectResponseDto> getAllProject(Pageable pageable) {
+
+        Page<Project> projectList = projectRepo.findAll(pageable);
+
+        return projectList.map(Mapper::toProjectResponseDto);
+
+    }
+
+    public Page<ProjectResponseDto> getPublishedProject(Pageable pageable) {
+
+        Page<Project> projectPage= projectRepo.findByIsPublishedTrue(pageable);
+
+        return projectPage.map(Mapper::toProjectResponseDto);
+
+
+    }
 }
