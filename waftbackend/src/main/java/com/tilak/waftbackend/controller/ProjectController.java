@@ -3,6 +3,7 @@ package com.tilak.waftbackend.controller;
 import com.tilak.waftbackend.dto.request.ProjectImageRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
+import com.tilak.waftbackend.dto.response.ProjectImageResponseDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.model.PrincipalUser;
 import com.tilak.waftbackend.model.WaftUser;
@@ -177,7 +178,7 @@ public class ProjectController {
     }
 
     @PostMapping("/projects/admin/{projectId}/images")
-    public ResponseEntity<ProjectImageResponseDto> addProjectImage(ProjectImageRequestDto projectImageRequestDto){
+    public ResponseEntity<ProjectImageResponseDto> addProjectImage(@PathVariable Long projectId , @RequestBody ProjectImageRequestDto projectImageRequestDto){
 
     }
 
