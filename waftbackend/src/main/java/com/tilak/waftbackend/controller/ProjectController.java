@@ -1,5 +1,6 @@
 package com.tilak.waftbackend.controller;
 
+import com.tilak.waftbackend.dto.request.ProjectImageRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
@@ -157,7 +158,6 @@ public class ProjectController {
 
     }
 
-    // Controller
     @Operation(
             summary = "Delete a project (admin)",
             description = "Permanently deletes a project and its associated images. This action cannot "
@@ -175,5 +175,11 @@ public class ProjectController {
         projectService.deleteProject(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/projects/admin/{projectId}/images")
+    public ResponseEntity<ProjectImageResponseDto> addProjectImage(ProjectImageRequestDto projectImageRequestDto){
+
+    }
+
 
 }
