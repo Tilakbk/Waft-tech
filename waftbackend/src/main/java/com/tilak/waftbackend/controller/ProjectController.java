@@ -157,4 +157,23 @@ public class ProjectController {
 
     }
 
+    // Controller
+    @Operation(
+            summary = "Delete a project (admin)",
+            description = "Permanently deletes a project and its associated images. This action cannot "
+                    + "be undone. Restricted to ADMIN role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Project deleted successfully"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not an ADMIN"),
+            @ApiResponse(responseCode = "404", description = "No project exists with the given ID")
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/projects/admin/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id){
+        projectService.deleteProject(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

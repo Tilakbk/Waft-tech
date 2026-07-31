@@ -140,4 +140,12 @@ public class ProjectService {
 
         return Mapper.toProjectResponseDto(projectRepo.save(project));
     }
+
+    @Transactional
+    public void deleteProject(Long id) {
+        Project project = projectRepo.findById(id)
+                .orElseThrow(() -> new ProjectNotFoundException("Project with id " + id + " does not exist"));
+
+        projectRepo.delete(project);
+    }
 }
