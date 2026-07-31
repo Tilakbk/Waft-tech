@@ -45,6 +45,7 @@ public class ProjectService {
                     .replaceAll("\\s+", "-");
         }
 
+    @Transactional(readOnly = true)
     public Page<ProjectResponseDto> getAllProject(Pageable pageable) {
 
         Page<Project> projectList = projectRepo.findAll(pageable);
@@ -53,6 +54,7 @@ public class ProjectService {
 
     }
 
+    @Transactional(readOnly = true)
     public Page<ProjectResponseDto> getPublishedProject(String tag, Pageable pageable) {
         if (tag == null || tag.isBlank()) {
             Page<Project> projectPage = projectRepo.findByIsPublishedTrue(pageable);
@@ -64,7 +66,7 @@ public class ProjectService {
         return projectPage.map(Mapper::toProjectResponseDto);
     }
 
-
+    @Transactional(readOnly = true)
     public ProjectResponseDto getPublishedProjectBySlug(String slug) {
 
         Project project = projectRepo.findBySlugAndIsPublishedTrue(slug)
@@ -73,6 +75,7 @@ public class ProjectService {
         return Mapper.toProjectResponseDto(project);
     }
 
+    @Transactional(readOnly = true)
     public ProjectResponseDto getProjectById(Long id) {
 
         Project project = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException(id+" Project with this id does not exist"));
