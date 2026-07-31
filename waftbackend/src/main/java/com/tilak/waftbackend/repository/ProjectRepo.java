@@ -25,4 +25,6 @@ public interface ProjectRepo extends JpaRepository<Project,Long> {
 
     @Query("SELECT p FROM Project p WHERE p.isPublished=true AND p.slug= :slug")
     Optional<Project> findBySlugAndIsPublishedTrue(@Param("slug") String slug);
+
+    boolean existsBySlugAndIdNot(String slug, Long id);
 }

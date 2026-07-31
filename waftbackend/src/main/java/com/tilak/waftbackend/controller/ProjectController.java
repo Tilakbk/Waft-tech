@@ -134,6 +134,22 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.updateProjectPublishStatus(id));
     }
 
+    @Operation(
+            summary = "Partially update a project (admin)",
+            description = "Updates one or more fields of a project. Only fields present in the request "
+                    + "body are modified — omitted or null fields are left unchanged. If the title is "
+                    + "updated, the project's slug is automatically regenerated from the new title. "
+                    + "Restricted to ADMIN role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Project updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Title was provided but is blank"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not an ADMIN"),
+            @ApiResponse(responseCode = "404", description = "No project exists with the given ID"),
+            @ApiResponse(responseCode = "409", description = "The regenerated slug collides with another project's slug")
+    })
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/projects/admin/{id}")
     public ResponseEntity<ProjectResponseDto> updateProject(@PathVariable Long id,@RequestBody ProjectUpdateRequestDto projectUpdateRequestDto){
 

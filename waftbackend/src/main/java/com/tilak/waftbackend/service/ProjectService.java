@@ -91,9 +91,53 @@ public class ProjectService {
         return Mapper.toProjectResponseDto(projectRepo.save(project));
     }
 
+    @Transactional
     public ProjectResponseDto updateProject(Long id, ProjectUpdateRequestDto projectUpdateRequestDto) {
 
-        Project project = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException(id+" Project with this id does not exist"));
+        Project project = projectRepo.findById(id)
+                .orElseThrow(() -> new ProjectNotFoundException("Project with id " + id + " does not exist"));
 
+        if (projectUpdateRequestDto.getTitle() != null) {
+            if (projectUpdateRequestDto.getTitle().isBlank()) {
+                throw new IllegalArgumentException("Title cannot be blank");
+            }
+
+            String newSlug = generateSlug(projectUpdateRequestDto.getTitle());
+            if (projectRepo.existsBySlugAndIdNot(newSlug, id)) {
+                throw new DuplicateSlugException("A project with this slug already exists.");
+            }
+
+            project.setTitle(projectUpdateRequestDto.getTitle());
+            project.setSlug(newSlug);
+        }
+
+        if (projectUpdateRequestDto.getTags() != null)
+            project.setTags(projectUpdateRequestDto.getTags());
+
+        if (projectUpdateRequestDto.getThumbnailUrl() != null)
+            project.setThumbNail(projectUpdateRequestDto.getThumbnailUrl());
+
+        if (projectUpdateRequestDto.getHeroImageUrl() != null)
+            project.setHeroImage(projectUpdateRequestDto.getHeroImageUrl());
+
+        if (projectUpdateRequestDto.getDate() != null)
+            project.setDate(projectUpdateRequestDto.getDate());
+
+        if (projectUpdateRequestDto.getBrief() != null)
+            project.setBrief(projectUpdateRequestDto.getBrief());
+
+        if (projectUpdateRequestDto.getProblemStatement() != null)
+            project.setProblemStatement(projectUpdateRequestDto.getProblemStatement());
+
+        if (projectUpdateRequestDto.getSolutions() != null)
+            project.setSolution(projectUpdateRequestDto.getSolutions());
+
+        if (projectUpdateRequestDto.getResults() != null)
+            project.setResult(projectUpdateRequestDto.getResults());
+
+        if (projectUpdateRequestDto.getFinalThought() != null)
+            project.setFinalThought(projectUpdateRequestDto.getFinalThought());
+
+        return Mapper.toProjectResponseDto(projectRepo.save(project));
     }
 }
