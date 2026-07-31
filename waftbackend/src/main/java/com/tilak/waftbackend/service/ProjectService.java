@@ -1,13 +1,16 @@
 package com.tilak.waftbackend.service;
 
+import com.tilak.waftbackend.dto.request.ProjectImageRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
+import com.tilak.waftbackend.dto.response.ProjectImageResponseDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.exception.DuplicateSlugException;
 import com.tilak.waftbackend.exception.ProjectNotFoundException;
 import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.model.Project;
 import com.tilak.waftbackend.model.WaftUser;
+import com.tilak.waftbackend.repository.ProjectImageRepo;
 import com.tilak.waftbackend.repository.ProjectRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProjectService {
 
     private final ProjectRepo projectRepo;
+    private final ProjectImageRepo projectImageRepo;
 
     @Transactional
     public ProjectResponseDto addProject(ProjectRequestDto projectRequestDto, WaftUser waftUser) {
@@ -147,5 +151,10 @@ public class ProjectService {
                 .orElseThrow(() -> new ProjectNotFoundException("Project with id " + id + " does not exist"));
 
         projectRepo.delete(project);
+    }
+
+    public ProjectImageResponseDto addProjectImage(Long projectId, ProjectImageRequestDto projectImageRequestDto) {
+            Project project= projectRepo.findById(projectId).orElseThrow(()-> new ProjectNotFoundException("Project with id: "+projectId+" is not found"));
+
     }
 }

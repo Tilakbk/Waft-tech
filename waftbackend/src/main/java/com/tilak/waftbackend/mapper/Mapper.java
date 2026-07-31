@@ -1,9 +1,11 @@
 package com.tilak.waftbackend.mapper;
 
 import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
+import com.tilak.waftbackend.dto.request.ProjectImageRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.LoginResponseDto;
+import com.tilak.waftbackend.dto.response.ProjectImageResponseDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
 import com.tilak.waftbackend.model.Project;
@@ -123,6 +125,22 @@ public class Mapper {
                 .finalThought(project.getFinalThought())
                 .heroImageUrl(project.getHeroImageUrl())
                 .solutions(project.getSolutions())
+                .build();
+    }
+
+    public static ProjectImage toProjectImage(ProjectImageRequestDto requestDto){
+        return ProjectImage.builder()
+                .image(requestDto.getImage())
+                .sortOrder(requestDto.getSortOrder())
+                .build();
+    }
+
+    public static ProjectImageResponseDto toProjectImageResponseDto(ProjectImage projectImage){
+        return ProjectImageResponseDto.builder()
+                .id(projectImage.getId())
+                .image(projectImage.getImage())
+                .sortOrder(projectImage.getSortOrder())
+                .projectName(projectImage.getProject().getTitle())
                 .build();
     }
 

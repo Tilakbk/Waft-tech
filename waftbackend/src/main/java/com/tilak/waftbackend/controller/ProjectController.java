@@ -180,6 +180,8 @@ public class ProjectController {
     @PostMapping("/projects/admin/{projectId}/images")
     public ResponseEntity<ProjectImageResponseDto> addProjectImage(@PathVariable Long projectId , @RequestBody ProjectImageRequestDto projectImageRequestDto){
 
+        return ResponseEntity.ok(projectService.addProjectImage(projectId,projectImageRequestDto));
+
     }
 
 
