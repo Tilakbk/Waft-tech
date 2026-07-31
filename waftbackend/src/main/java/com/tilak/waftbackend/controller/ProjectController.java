@@ -137,6 +137,8 @@ public class ProjectController {
     @PutMapping("/projects/admin/{id}")
     public ResponseEntity<ProjectResponseDto> updateProject(@PathVariable Long id,@RequestBody ProjectUpdateRequestDto projectUpdateRequestDto){
 
+        return ResponseEntity.ok(projectService.updateProject(id,projectUpdateRequestDto));
+
     }
 
 }

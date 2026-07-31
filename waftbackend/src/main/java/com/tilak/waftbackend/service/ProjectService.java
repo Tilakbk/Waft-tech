@@ -1,6 +1,7 @@
 package com.tilak.waftbackend.service;
 
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
+import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.exception.DuplicateSlugException;
 import com.tilak.waftbackend.exception.ProjectNotFoundException;
@@ -88,5 +89,11 @@ public class ProjectService {
         Project project = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException(id+" Project with this id does not exist"));
         project.setIsPublished(!project.getIsPublished());
         return Mapper.toProjectResponseDto(projectRepo.save(project));
+    }
+
+    public ProjectResponseDto updateProject(Long id, ProjectUpdateRequestDto projectUpdateRequestDto) {
+
+        Project project = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException(id+" Project with this id does not exist"));
+
     }
 }
