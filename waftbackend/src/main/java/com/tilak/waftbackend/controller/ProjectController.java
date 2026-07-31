@@ -1,6 +1,7 @@
 package com.tilak.waftbackend.controller;
 
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
+import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.model.PrincipalUser;
 import com.tilak.waftbackend.model.WaftUser;
@@ -131,6 +132,11 @@ public class ProjectController {
     @PatchMapping("/projects/{id}/publish")
     public ResponseEntity<ProjectResponseDto> updateProjectPublishStatus(@PathVariable Long id){
         return ResponseEntity.ok(projectService.updateProjectPublishStatus(id));
+    }
+
+    @PutMapping("/projects/admin/{id}")
+    public ResponseEntity<ProjectResponseDto> updateProject(@PathVariable Long id,@RequestBody ProjectUpdateRequestDto projectUpdateRequestDto){
+
     }
 
 }
