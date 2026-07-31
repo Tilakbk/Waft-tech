@@ -98,6 +98,18 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getPublishedProjectBySlug(slug));
     }
 
+    @Operation(
+            summary = "Get any project by ID (admin)",
+            description = "Returns a project by its numeric ID regardless of publish status. "
+                    + "Intended for the admin edit screen. Restricted to ADMIN role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Project retrieved successfully"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not an ADMIN"),
+            @ApiResponse(responseCode = "404", description = "No project exists with the given ID")
+    })
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/projects/admin/{id}")
     public ResponseEntity<ProjectResponseDto> getProjectById(@PathVariable Long id){
         return ResponseEntity.ok(projectService.getProjectById(id));
