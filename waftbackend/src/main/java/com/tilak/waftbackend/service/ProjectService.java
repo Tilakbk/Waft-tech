@@ -81,4 +81,12 @@ public class ProjectService {
         Project project = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException(id+" Project with this id does not exist"));
         return Mapper.toProjectResponseDto(project);
     }
+
+    @Transactional
+    public ProjectResponseDto updateProjectPublishStatus(Long id) {
+
+        Project project = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException(id+" Project with this id does not exist"));
+        project.setIsPublished(!project.getIsPublished());
+        return Mapper.toProjectResponseDto(projectRepo.save(project));
+    }
 }

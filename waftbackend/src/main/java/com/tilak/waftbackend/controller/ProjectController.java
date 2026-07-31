@@ -115,5 +115,22 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getProjectById(id));
     }
 
+    @Operation(
+            summary = "Toggle a project's publish status",
+            description = "Flips a project between published and unpublished. Restricted to ADMIN role. "
+                    + "Calling this repeatedly toggles the state back and forth — there is no separate "
+                    + "'publish' vs 'unpublish' endpoint."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Publish status toggled successfully"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not an ADMIN"),
+            @ApiResponse(responseCode = "404", description = "No project exists with the given ID")
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/projects/{id}/publish")
+    public ResponseEntity<ProjectResponseDto> updateProjectPublishStatus(@PathVariable Long id){
+        return ResponseEntity.ok(projectService.updateProjectPublishStatus(id));
+    }
 
 }
