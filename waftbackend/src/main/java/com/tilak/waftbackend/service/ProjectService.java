@@ -3,12 +3,14 @@ package com.tilak.waftbackend.service;
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.exception.DuplicateSlugException;
+import com.tilak.waftbackend.exception.ProjectNotFoundException;
 import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.model.Project;
 import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.repository.ProjectRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,12 +53,29 @@ public class ProjectService {
 
     }
 
-    public Page<ProjectResponseDto> getPublishedProject(Pageable pageable) {
+    public Page<ProjectResponseDto> getPublishedProject(String tag, Pageable pageable) {
+        if (tag == null || tag.isBlank()) {
+            Page<Project> projectPage = projectRepo.findByIsPublishedTrue(pageable);
+            return projectPage.map(Mapper::toProjectResponseDto);
+        }
 
-        Page<Project> projectPage= projectRepo.findByIsPublishedTrue(pageable);
-
+        Pageable unsorted = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+        Page<Project> projectPage = projectRepo.findByIsPublishedTrueAndTag(tag, unsorted);
         return projectPage.map(Mapper::toProjectResponseDto);
+    }
 
 
+    public ProjectResponseDto getPublishedProjectBySlug(String slug) {
+
+        Project project = projectRepo.findBySlugAndIsPublishedTrue(slug)
+                .orElseThrow(() -> new ProjectNotFoundException("No published project found with slug: " + slug));
+
+        return Mapper.toProjectResponseDto(project);
+    }
+
+    public ProjectResponseDto getProjectById(Long id) {
+
+        Project project = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException(id+" Project with this id does not exist"));
+        return Mapper.toProjectResponseDto(project);
     }
 }

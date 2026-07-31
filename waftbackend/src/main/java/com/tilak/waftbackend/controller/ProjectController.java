@@ -21,8 +21,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -81,10 +79,29 @@ public class ProjectController {
             @ApiResponse(responseCode = "200", description = "Published projects retrieved successfully")
     })
     @GetMapping("/projects")
-    public ResponseEntity<Page<ProjectResponseDto>> getPublishedProject(@ParameterObject @PageableDefault(size = 8,sort = "createdAt", direction = Sort.Direction.ASC)Pageable pageable){
-        return ResponseEntity.ok(projectService.getPublishedProject(pageable));
+    public ResponseEntity<Page<ProjectResponseDto>> getPublishedProject(@RequestParam(required = false) String tag,@ParameterObject @PageableDefault(size = 8,sort = "createdAt", direction = Sort.Direction.ASC)Pageable pageable){
+        return ResponseEntity.ok(projectService.getPublishedProject(tag,pageable));
     }
 
+    @Operation(
+            summary = "Get a published project by slug",
+            description = "Returns a single published project by its URL slug. Public endpoint, no "
+                    + "authentication required. Unpublished projects and nonexistent slugs both return "
+                    + "404, indistinguishably."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Project retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "No published project exists with the given slug")
+    })
+    @GetMapping("/projects/{slug}")
+    public ResponseEntity<ProjectResponseDto> getPublishedProjectBySlug(@PathVariable String slug){
+        return ResponseEntity.ok(projectService.getPublishedProjectBySlug(slug));
+    }
+
+    @GetMapping("/projects/admin/{id}")
+    public ResponseEntity<ProjectResponseDto> getProjectById(@PathVariable Long id){
+        return ResponseEntity.ok(projectService.getProjectById(id));
+    }
 
 
 }
