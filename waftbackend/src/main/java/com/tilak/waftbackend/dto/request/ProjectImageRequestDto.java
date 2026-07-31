@@ -16,6 +16,5 @@ public class ProjectImageRequestDto {
     @NotBlank(message = "Image url is mandatory")
     private String image;
 
-    @NotNull(message = "Sort order is mandatory")
-    private Integer sortOrder;
+
 }

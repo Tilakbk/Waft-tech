@@ -131,7 +131,6 @@ public class Mapper {
     public static ProjectImage toProjectImage(ProjectImageRequestDto requestDto){
         return ProjectImage.builder()
                 .image(requestDto.getImage())
-                .sortOrder(requestDto.getSortOrder())
                 .build();
     }
 
@@ -141,6 +140,7 @@ public class Mapper {
                 .image(projectImage.getImage())
                 .sortOrder(projectImage.getSortOrder())
                 .projectName(projectImage.getProject().getTitle())
+                .createdAt(projectImage.getCreatedAt())
                 .build();
     }
 

@@ -177,8 +177,20 @@ public class ProjectController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(
+            summary = "Add an image to a project's gallery",
+            description = "Adds a new image entry to a project's image gallery. Restricted to ADMIN role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Image added successfully"),
+            @ApiResponse(responseCode = "400", description = "Validation failed on request body"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not an ADMIN"),
+            @ApiResponse(responseCode = "404", description = "No project exists with the given ID")
+    })
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/projects/admin/{projectId}/images")
-    public ResponseEntity<ProjectImageResponseDto> addProjectImage(@PathVariable Long projectId , @RequestBody ProjectImageRequestDto projectImageRequestDto){
+    public ResponseEntity<ProjectImageResponseDto> addProjectImage(@PathVariable Long projectId ,@Valid @RequestBody ProjectImageRequestDto projectImageRequestDto){
 
         return ResponseEntity.ok(projectService.addProjectImage(projectId,projectImageRequestDto));
 

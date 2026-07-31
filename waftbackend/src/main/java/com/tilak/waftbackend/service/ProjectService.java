@@ -9,6 +9,7 @@ import com.tilak.waftbackend.exception.DuplicateSlugException;
 import com.tilak.waftbackend.exception.ProjectNotFoundException;
 import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.model.Project;
+import com.tilak.waftbackend.model.ProjectImage;
 import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.repository.ProjectImageRepo;
 import com.tilak.waftbackend.repository.ProjectRepo;
@@ -153,8 +154,17 @@ public class ProjectService {
         projectRepo.delete(project);
     }
 
+    @Transactional
     public ProjectImageResponseDto addProjectImage(Long projectId, ProjectImageRequestDto projectImageRequestDto) {
-            Project project= projectRepo.findById(projectId).orElseThrow(()-> new ProjectNotFoundException("Project with id: "+projectId+" is not found"));
+        Project project = projectRepo.findById(projectId).orElseThrow(()-> new ProjectNotFoundException("Project with id: "+projectId+" is not found"));
+        ProjectImage projectImage = Mapper.toProjectImage(projectImageRequestDto);
+        projectImage.setProject(project);
 
+        Integer nextSortOrder = projectImageRepo.findMaxSortOrderByProjectId(projectId)
+                .map(Long::intValue)
+                .orElse(-1) + 1;
+        projectImage.setSortOrder(nextSortOrder);
+
+        return Mapper.toProjectImageResponseDto(projectImageRepo.save(projectImage));
     }
 }
