@@ -24,6 +24,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -193,7 +195,23 @@ public class ProjectController {
     public ResponseEntity<ProjectImageResponseDto> addProjectImage(@PathVariable Long projectId ,@Valid @RequestBody ProjectImageRequestDto projectImageRequestDto){
 
         return ResponseEntity.ok(projectService.addProjectImage(projectId,projectImageRequestDto));
+    }
 
+    @Operation(
+            summary = "List a project's images (admin)",
+            description = "Returns all images for a project, ordered by sort position. Intended for the "
+                    + "admin gallery-editing screen. Restricted to ADMIN role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Images retrieved successfully"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not an ADMIN"),
+            @ApiResponse(responseCode = "404", description = "No project exists with the given ID")
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/projects/admin/{projectId}/images")
+    public ResponseEntity<List<ProjectImageResponseDto>> getProjectImages(@PathVariable Long projectId){
+        return ResponseEntity.ok(projectService.getProjectImages(projectId));
     }
 
 

@@ -20,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -166,5 +168,19 @@ public class ProjectService {
         projectImage.setSortOrder(nextSortOrder);
 
         return Mapper.toProjectImageResponseDto(projectImageRepo.save(projectImage));
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProjectImageResponseDto> getProjectImages(Long projectId) {
+
+        if (!projectRepo.existsById(projectId)) {
+            throw new ProjectNotFoundException("Project with id: " + projectId + " is not found");
+        }
+
+        List<ProjectImage> images = projectImageRepo.findByProject_IdOrderBySortOrderAsc(projectId);
+
+        return images.stream()
+                .map(Mapper::toProjectImageResponseDto)
+                .toList();
     }
 }
