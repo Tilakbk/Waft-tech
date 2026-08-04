@@ -96,4 +96,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiErrorDto);
     }
+
+    @ExceptionHandler(InvalidReorderRequestException.class)
+    public ResponseEntity<ApiErrorDto> handleInvalidReorderRequestException(InvalidReorderRequestException e, HttpServletRequest request) {
+
+        log.warn("Invalid reorder request: {}", e.getMessage());
+
+        ApiErrorDto apiErrorDto = new ApiErrorDto(HttpStatus.BAD_REQUEST.value(), "Invalid Reorder Request", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorDto);
+    }
 }
