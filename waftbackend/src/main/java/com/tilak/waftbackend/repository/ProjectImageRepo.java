@@ -15,5 +15,6 @@ public interface ProjectImageRepo extends JpaRepository<ProjectImage,Long> {
     @Query("SELECT MAX(pi.sortOrder) FROM ProjectImage pi WHERE pi.project.id = :projectId")
     Optional<Long> findMaxSortOrderByProjectId(@Param("projectId") Long projectId);
 
-    List<ProjectImage> findByProject_IdOrderBySortOrderAsc(Long projectId);
+    @Query("SELECT pi FROM ProjectImage pi WHERE pi.project.id = :projectId ORDER BY pi.sortOrder ASC")
+    List<ProjectImage> findByProject_IdOrderBySortOrderAsc(@Param("projectId") Long projectId);
 }
