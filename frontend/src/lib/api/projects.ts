@@ -83,7 +83,8 @@ export function getProjectById(id: number) {
 }
 
 export function createProject(data: ProjectFormData) {
-  return apiClient<ProjectResponse>("/api/project", { method: "POST", body: data });
+  // return apiClient<ProjectResponse>("/api/project", { method: "POST", body: data });
+  return apiClient<ProjectResponse>("/api/projects/admin", { method: "POST", body: data });
 }
 
 export function updateProject(id: number, data: Partial<ProjectFormData>) {
@@ -95,7 +96,7 @@ export function deleteProject(id: number) {
 }
 
 export function toggleProjectPublish(id: number) {
-  return apiClient<ProjectResponse>(`/api/projects/${id}/publish`, { method: "PATCH" });
+  return apiClient<ProjectResponse>(`/api/projects/admin/${id}/publish`, { method: "PATCH" });
 }
 
 export function getProjectImages(projectId: number) {
