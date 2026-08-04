@@ -214,5 +214,22 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getProjectImages(projectId));
     }
 
+    @Operation(
+            summary = "Delete a project image (admin)",
+            description = "Permanently removes a single image from a project's gallery. The image must "
+                    + "belong to the specified project. Restricted to ADMIN role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Image deleted successfully"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not an ADMIN"),
+            @ApiResponse(responseCode = "404", description = "No project exists with the given ID, or no image exists with the given ID under this project")
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/projects/admin/{projectId}/images/{imageId}")
+    public ResponseEntity<Void> deleteProjectImage(@PathVariable Long projectId, @PathVariable Long imageId){
+        projectService.deleteProjectImage(projectId, imageId);
+        return ResponseEntity.noContent().build();
+    }
 
 }
