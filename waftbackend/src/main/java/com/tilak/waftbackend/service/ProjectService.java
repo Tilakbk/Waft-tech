@@ -6,6 +6,7 @@ import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.ProjectImageResponseDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.exception.DuplicateSlugException;
+import com.tilak.waftbackend.exception.ProjectImageNotFoundException;
 import com.tilak.waftbackend.exception.ProjectNotFoundException;
 import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.model.Project;
@@ -182,5 +183,22 @@ public class ProjectService {
         return images.stream()
                 .map(Mapper::toProjectImageResponseDto)
                 .toList();
+    }
+
+    @Transactional
+    public void deleteProjectImage(Long projectId, Long imageId) {
+
+        if (!projectRepo.existsById(projectId)) {
+            throw new ProjectNotFoundException("Project with id: " + projectId + " is not found");
+        }
+
+        ProjectImage image = projectImageRepo.findById(imageId)
+                .orElseThrow(() -> new ProjectImageNotFoundException("Image with id: " + imageId + " is not found"));
+
+        if (!image.getProject().getId().equals(projectId)) {
+            throw new ProjectImageNotFoundException("Image with id: " + imageId + " does not belong to project with id: " + projectId);
+        }
+
+        projectImageRepo.delete(image);
     }
 }

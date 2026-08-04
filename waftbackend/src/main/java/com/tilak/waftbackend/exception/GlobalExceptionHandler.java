@@ -86,4 +86,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiErrorDto);
     }
+
+    @ExceptionHandler(ProjectImageNotFoundException.class)
+    public ResponseEntity<ApiErrorDto> handleProjectImageNotFoundException(ProjectImageNotFoundException e, HttpServletRequest request) {
+
+        log.warn("Project image not found: {}", e.getMessage());
+
+        ApiErrorDto apiErrorDto = new ApiErrorDto(HttpStatus.NOT_FOUND.value(), "Project Image Not Found", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiErrorDto);
+    }
 }
