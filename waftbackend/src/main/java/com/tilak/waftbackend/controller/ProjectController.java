@@ -3,6 +3,7 @@ package com.tilak.waftbackend.controller;
 import com.tilak.waftbackend.dto.request.ProjectImageRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
+import com.tilak.waftbackend.dto.request.ReorderRequestDto;
 import com.tilak.waftbackend.dto.response.ProjectImageResponseDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.model.PrincipalUser;
@@ -230,6 +231,25 @@ public class ProjectController {
     public ResponseEntity<Void> deleteProjectImage(@PathVariable Long projectId, @PathVariable Long imageId){
         projectService.deleteProjectImage(projectId, imageId);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(
+            summary = "Reorder a project's images (admin)",
+            description = "Reassigns sort order for all images in a project's gallery based on the order "
+                    + "of IDs in the request. The request must contain exactly the same set of image IDs "
+                    + "currently belonging to the project — no more, no fewer. Restricted to ADMIN role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Images reordered successfully"),
+            @ApiResponse(responseCode = "400", description = "The provided image id list is empty, or does not exactly match the project's current images"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not an ADMIN"),
+            @ApiResponse(responseCode = "404", description = "No project exists with the given ID")
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/projects/admin/{projectId}/images/reorder")
+    public ResponseEntity<List<ProjectImageResponseDto>> reorderProjectImages(@PathVariable Long projectId, @Valid @RequestBody ReorderRequestDto reorderRequestDto){
+        return ResponseEntity.ok(projectService.reorderProjectImages(projectId, reorderRequestDto));
     }
 
 }

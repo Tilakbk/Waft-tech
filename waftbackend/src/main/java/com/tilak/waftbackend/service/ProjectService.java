@@ -3,9 +3,11 @@ package com.tilak.waftbackend.service;
 import com.tilak.waftbackend.dto.request.ProjectImageRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
+import com.tilak.waftbackend.dto.request.ReorderRequestDto;
 import com.tilak.waftbackend.dto.response.ProjectImageResponseDto;
 import com.tilak.waftbackend.dto.response.ProjectResponseDto;
 import com.tilak.waftbackend.exception.DuplicateSlugException;
+import com.tilak.waftbackend.exception.InvalidReorderRequestException;
 import com.tilak.waftbackend.exception.ProjectImageNotFoundException;
 import com.tilak.waftbackend.exception.ProjectNotFoundException;
 import com.tilak.waftbackend.mapper.Mapper;
@@ -21,7 +23,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -200,5 +205,35 @@ public class ProjectService {
         }
 
         projectImageRepo.delete(image);
+    }
+
+    @Transactional
+    public List<ProjectImageResponseDto> reorderProjectImages(Long projectId, ReorderRequestDto reorderRequestDto) {
+
+        if (!projectRepo.existsById(projectId)) {
+            throw new ProjectNotFoundException("Project with id: " + projectId + " is not found");
+        }
+
+        List<ProjectImage> existingImages = projectImageRepo.findByProject_IdOrderBySortOrderAsc(projectId);
+
+        List<Long> existingIds = existingImages.stream().map(ProjectImage::getId).toList();
+        List<Long> requestedIds = reorderRequestDto.getImageIds();
+
+        if (existingIds.size() != requestedIds.size() || !existingIds.containsAll(requestedIds)) {
+            throw new InvalidReorderRequestException(
+                    "The provided image id list does not exactly match the images currently in this project's gallery");
+        }
+
+        Map<Long, ProjectImage> imagesById = existingImages.stream()
+                .collect(Collectors.toMap(ProjectImage::getId, image -> image));
+
+        for (int i = 0; i < requestedIds.size(); i++) imagesById.get(requestedIds.get(i)).setSortOrder(i);
+
+        List<ProjectImage> saved = projectImageRepo.saveAll(existingImages);
+
+        return saved.stream()
+                .sorted(Comparator.comparing(ProjectImage::getSortOrder))
+                .map(Mapper::toProjectImageResponseDto)
+                .toList();
     }
 }
