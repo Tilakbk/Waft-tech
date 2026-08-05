@@ -30,4 +30,10 @@ public class TeamMemberService {
                 .map(Mapper::toTeamMemberResponseDto)
                 .toList();
     }
+
+    public TeamMemberResponseDto getTeamMemberById(Long id) {
+
+        return Mapper.toTeamMemberResponseDto(waftUserRepo.findById(id).orElseThrow(()->new TeamMemberNotFoundException("Member with "+id+" is not found")));
+
+    }
 }
