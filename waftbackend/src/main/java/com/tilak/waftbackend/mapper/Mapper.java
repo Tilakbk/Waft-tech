@@ -4,10 +4,7 @@ import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectImageRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectRequestDto;
 import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
-import com.tilak.waftbackend.dto.response.LoginResponseDto;
-import com.tilak.waftbackend.dto.response.ProjectImageResponseDto;
-import com.tilak.waftbackend.dto.response.ProjectResponseDto;
-import com.tilak.waftbackend.dto.response.WaftUserResponseDto;
+import com.tilak.waftbackend.dto.response.*;
 import com.tilak.waftbackend.model.Project;
 import com.tilak.waftbackend.model.ProjectImage;
 import com.tilak.waftbackend.model.WaftUser;
@@ -37,13 +34,11 @@ public class Mapper {
 
     }
 
-    public static WaftUserResponseDto toTeamMemberResponseDto(WaftUser waftUser)
+    public static TeamMemberResponseDto toTeamMemberResponseDto(WaftUser waftUser)
     {
-        return WaftUserResponseDto.builder()
+        return TeamMemberResponseDto.builder()
                 .id(waftUser.getId())
                 .name(waftUser.getName())
-                .email(waftUser.getEmail())
-                .role(waftUser.getRole())
                 .isActive(waftUser.getIsActive())
                 .createdAt(waftUser.getCreatedAt())
                 .photo(waftUser.getPhoto())
