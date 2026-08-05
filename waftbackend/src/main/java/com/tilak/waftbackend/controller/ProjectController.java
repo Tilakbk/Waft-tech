@@ -35,7 +35,6 @@ public class ProjectController {
 
     private final ProjectService projectService;
 
-
     @Operation(
             summary = "Create a new project",
             description = "Adds a new completed project entry to the portfolio. Generates a unique, "

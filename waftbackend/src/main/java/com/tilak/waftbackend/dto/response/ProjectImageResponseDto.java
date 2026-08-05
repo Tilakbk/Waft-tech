@@ -12,11 +12,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ProjectImageResponseDto {
-
     private Long id;
     private String image;
     private Integer sortOrder;
     private LocalDateTime createdAt;
     private String projectName;
-
 }
