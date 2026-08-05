@@ -2,6 +2,7 @@ package com.tilak.waftbackend.service;
 
 import com.tilak.waftbackend.dto.response.TeamMemberResponseDto;
 import com.tilak.waftbackend.enums.Role;
+import com.tilak.waftbackend.exception.TeamMemberNotFoundException;
 import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.repository.WaftUserRepo;
