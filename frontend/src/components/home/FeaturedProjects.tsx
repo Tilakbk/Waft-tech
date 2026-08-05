@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ProjectResponse } from "@/lib/api/projects";
 
-const projects = [
-  { number: "01", title: "Luminate", image: "/images/home/project-luminate.jpg", href: "/works/luminate" },
-  { number: "02", title: "Lineage Journey", image: "/images/home/project-lineage.jpg", href: "/works/lineage-journey" },
-  { number: "03", title: "SUMMA", image: "/images/home/project-summa.jpg", href: "/works/summa" },
-];
+interface FeaturedProjectsProps {
+    projects: ProjectResponse[];
+}
 
-export default function FeaturedProjects() {
+export default function FeaturedProjects({ projects }: FeaturedProjectsProps) { {
   const [active, setActive] = useState(0);
 
   return (
@@ -41,8 +40,8 @@ export default function FeaturedProjects() {
             <div>
               {projects.map((project, i) => (
                 <Link
-                  key={project.number}
-                  href={project.href}
+                  key={`${String(i + 1).padStart(2, "0")}.`}
+                  href={`/works/${project.slug}`}
                   onMouseEnter={() => setActive(i)}
                   style={{
                     display: "flex",
@@ -55,7 +54,7 @@ export default function FeaturedProjects() {
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "baseline", gap: "1.5rem" }}>
-                    <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)" }}>{project.number}.</span>
+                    <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)" }}>{`${String(i + 1).padStart(2, "0")}.`}.</span>
                     <span style={{
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(1.4rem, 2.5vw, 2rem)",
@@ -109,8 +108,8 @@ export default function FeaturedProjects() {
             {projects.map((project, i) => (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
-                key={project.number}
-                src={project.image}
+                key={`${String(i + 1).padStart(2, "0")}.`}
+                src={project.thumbnailUrl}
                 alt={project.title}
                 style={{
                   position: "absolute",
@@ -130,4 +129,4 @@ export default function FeaturedProjects() {
       </div>
     </section>
   );
-}
+}}
