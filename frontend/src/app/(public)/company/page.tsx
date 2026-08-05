@@ -24,7 +24,7 @@ export default function CompanyPage() {
 
       <MissionVision />
       <CoreValues />
-      <TrustedBrands showCta={false} />
+      {/*<TrustedBrands showCta={false} />*/}
       <FounderStory />
       <TeamGrid />
 
