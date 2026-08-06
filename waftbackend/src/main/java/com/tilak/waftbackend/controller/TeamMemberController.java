@@ -46,9 +46,15 @@ public class TeamMemberController {
         return ResponseEntity.ok(teamMemberService.getAllActiveTeamMember());
     }
 
+    @Operation(summary = "Get team member by id", description = "Return the team member matching provided id and throws exception if not found")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "Team member retrieved successfully"),
+            @ApiResponse(responseCode = "404",description = "team member not found")
+    })
     @GetMapping("/team/admin/{id}")
     public ResponseEntity<TeamMemberResponseDto> getTeamMemberById(@PathVariable Long id){
         return ResponseEntity.ok(teamMemberService.getTeamMemberById(id));
     }
+
 
 }

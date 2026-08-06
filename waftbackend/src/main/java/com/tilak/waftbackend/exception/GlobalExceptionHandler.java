@@ -106,4 +106,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorDto);
     }
+
+    @ExceptionHandler(TeamMemberNotFoundException.class)
+    public ResponseEntity<ApiErrorDto> handleTeamMemberNotFoundException(TeamMemberNotFoundException e, HttpServletRequest request) {
+
+        log.warn("Team member not found: {}", e.getMessage());
+
+        ApiErrorDto apiErrorDto = new ApiErrorDto(HttpStatus.NOT_FOUND.value(), "Team Member Not Found", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiErrorDto);
+    }
 }
