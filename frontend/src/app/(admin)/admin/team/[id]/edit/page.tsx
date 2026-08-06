@@ -4,74 +4,77 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import teamData from "@/mock/team.json";
-import { loadCollection, saveCollection } from "@/lib/adminStore";
-import AdminForm from "@/components/admin/AdminForm";
+import { getTeamMemberById, updateTeamMember, TeamMember } from "@/lib/team";
 
-interface Member {
-  id: string;
-  name: string;
-  role: string;
-  photo: string;
-  bio: string;
-}
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "0.75rem 1rem",
+  fontSize: "0.9rem",
+  border: "1px solid var(--color-gray-border)",
+  borderRadius: "var(--radius-sm)",
+  fontFamily: "var(--font-body)",
+  outline: "none",
+};
 
-const STORE_KEY = "admin_team";
-
-const fields = [
-  { key: "name", label: "Full name", placeholder: "Eg: Ashwin Rai", required: true },
-  { key: "role", label: "Role / Title", placeholder: "Eg: Frontend Developer", required: true },
-  { key: "photo", label: "Photo URL", placeholder: "/images/team/example.jpg" },
-  { key: "bio", label: "Short bio", type: "textarea" as const, placeholder: "One or two sentences about this person.", required: true },
-];
+const labelStyle: React.CSSProperties = {
+  display: "block",
+  fontSize: "0.85rem",
+  fontWeight: 600,
+  color: "var(--color-black)",
+  marginBottom: "0.5rem",
+};
 
 export default function EditTeamMemberPage() {
   const router = useRouter();
   const params = useParams();
-  const id = params.id as string;
+  const id = Number(params.id);
 
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [member, setMember] = useState<TeamMember | null>(null);
+  const [name, setName] = useState("");
+  const [roleTitle, setRoleTitle] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [bio, setBio] = useState("");
   const [loaded, setLoaded] = useState(false);
-  const [notFoundFlag, setNotFoundFlag] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const existing = loadCollection<Member>(STORE_KEY, teamData as Member[]);
-    const member = existing.find((m) => m.id === id);
-    if (!member) {
-      setNotFoundFlag(true);
+    async function load() {
+      const result = await getTeamMemberById(id);
+      if (result.success) {
+        setMember(result.data);
+        setName(result.data.name);
+        setRoleTitle(result.data.roleTitle ?? "");
+        setPhoto(result.data.photo ?? "");
+        setBio(result.data.bio ?? "");
+      } else {
+        setNotFound(true);
+      }
       setLoaded(true);
-      return;
     }
-    setValues({
-      name: member.name,
-      role: member.role,
-      photo: member.photo,
-      bio: member.bio,
-    });
-    setLoaded(true);
+    load();
   }, [id]);
 
-  const handleChange = (key: string, value: string) => {
-    setValues((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const existing = loadCollection<Member>(STORE_KEY, teamData as Member[]);
+    setSubmitting(true);
+    setError(null);
 
-    const updated = existing.map((m) =>
-      m.id === id
-        ? { ...m, name: values.name || "", role: values.role || "", photo: values.photo || "", bio: values.bio || "" }
-        : m
-    );
+    const result = await updateTeamMember(id, { name, roleTitle, photo, bio });
 
-    saveCollection(STORE_KEY, updated);
-    router.push("/admin/team");
+    setSubmitting(false);
+
+    if (result.success) {
+      router.push("/admin/team");
+    } else {
+      setError(result.error);
+    }
   };
 
   if (!loaded) return null;
 
-  if (notFoundFlag) {
+  if (notFound || !member) {
     return (
       <div>
         <p style={{ fontSize: "0.95rem", color: "var(--color-gray-mid)" }}>Team member not found.</p>
@@ -93,17 +96,42 @@ export default function EditTeamMemberPage() {
         Edit Team Member
       </h1>
 
-      <form onSubmit={handleSubmit} style={{ backgroundColor: "#ffffff", border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-md)", padding: "2rem" }}>
-        <AdminForm fields={fields} values={values} onChange={handleChange} />
+      {error && (
+        <p style={{ fontSize: "0.85rem", color: "#c0392b", marginBottom: "1.25rem" }}>{error}</p>
+      )}
 
-        <button type="submit" style={{
-          marginTop: "2rem",
-          fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500,
-          color: "#ffffff", backgroundColor: "var(--color-brand-teal)",
-          padding: "0.8rem 2rem", borderRadius: "var(--radius-full)",
-          border: "none", cursor: "pointer",
-        }}>
-          Save Changes
+      <form onSubmit={handleSubmit} style={{ backgroundColor: "#ffffff", border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-md)", padding: "2rem" }}>
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label style={labelStyle}>Full name</label>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Eg: Ashwin Rai" style={inputStyle} />
+        </div>
+
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label style={labelStyle}>Role / Title</label>
+          <input type="text" value={roleTitle} onChange={(e) => setRoleTitle(e.target.value)} placeholder="Eg: Frontend Developer" style={inputStyle} />
+        </div>
+
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label style={labelStyle}>Photo URL</label>
+          <input type="text" value={photo} onChange={(e) => setPhoto(e.target.value)} placeholder="/images/team/example.jpg" style={inputStyle} />
+        </div>
+
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label style={labelStyle}>Short bio</label>
+          <textarea value={bio} onChange={(e) => setBio(e.target.value)} rows={3} placeholder="One or two sentences about this person." style={{ ...inputStyle, resize: "vertical" }} />
+        </div>
+
+        <button
+          type="submit"
+          disabled={submitting}
+          style={{
+            fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500,
+            color: "#ffffff", backgroundColor: submitting ? "var(--color-gray-light)" : "var(--color-brand-teal)",
+            padding: "0.8rem 2rem", borderRadius: "var(--radius-full)",
+            border: "none", cursor: submitting ? "not-allowed" : "pointer",
+          }}
+        >
+          {submitting ? "Saving..." : "Save Changes"}
         </button>
       </form>
     </div>

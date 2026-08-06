@@ -4,50 +4,48 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import teamData from "@/mock/team.json";
-import { loadCollection, saveCollection } from "@/lib/adminStore";
-import AdminForm from "@/components/admin/AdminForm";
+import { registerTeamMember } from "@/lib/team";
 
-interface Member {
-  id: string;
-  name: string;
-  role: string;
-  photo: string;
-  bio: string;
-}
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "0.75rem 1rem",
+  fontSize: "0.9rem",
+  border: "1px solid var(--color-gray-border)",
+  borderRadius: "var(--radius-sm)",
+  fontFamily: "var(--font-body)",
+  outline: "none",
+};
 
-const STORE_KEY = "admin_team";
-
-const fields = [
-  { key: "name", label: "Full name", placeholder: "Eg: Ashwin Rai", required: true },
-  { key: "role", label: "Role / Title", placeholder: "Eg: Frontend Developer", required: true },
-  { key: "photo", label: "Photo URL", placeholder: "/images/team/example.jpg" },
-  { key: "bio", label: "Short bio", type: "textarea" as const, placeholder: "One or two sentences about this person.", required: true },
-];
+const labelStyle: React.CSSProperties = {
+  display: "block",
+  fontSize: "0.85rem",
+  fontWeight: 600,
+  color: "var(--color-black)",
+  marginBottom: "0.5rem",
+};
 
 export default function NewTeamMemberPage() {
   const router = useRouter();
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (key: string, value: string) => {
-    setValues((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const existing = loadCollection<Member>(STORE_KEY, teamData as Member[]);
+    setSubmitting(true);
+    setError(null);
 
-    const newMember: Member = {
-      id: Date.now().toString(),
-      name: values.name || "",
-      role: values.role || "",
-      photo: values.photo || "/images/team/placeholder.jpg",
-      bio: values.bio || "",
-    };
+    const result = await registerTeamMember({ name, email, password });
 
-    const updated = [...existing, newMember];
-    saveCollection(STORE_KEY, updated);
-    router.push("/admin/team");
+    setSubmitting(false);
+
+    if (result.success) {
+      router.push("/admin/team");
+    } else {
+      setError(result.error);
+    }
   };
 
   return (
@@ -57,21 +55,45 @@ export default function NewTeamMemberPage() {
         Back to Team
       </Link>
 
-      <h1 style={{ fontFamily: "var(--font-display)", fontSize: "1.5rem", fontWeight: 700, color: "var(--color-black)", marginBottom: "2rem" }}>
+      <h1 style={{ fontFamily: "var(--font-display)", fontSize: "1.5rem", fontWeight: 700, color: "var(--color-black)", marginBottom: "0.5rem" }}>
         Add New Team Member
       </h1>
+      <p style={{ fontSize: "0.85rem", color: "var(--color-gray-light)", marginBottom: "2rem" }}>
+        This creates a login account. The new member signs in themselves to complete their profile
+        (photo, bio, role title) — those fields aren&apos;t set here.
+      </p>
+
+      {error && (
+        <p style={{ fontSize: "0.85rem", color: "#c0392b", marginBottom: "1.25rem" }}>{error}</p>
+      )}
 
       <form onSubmit={handleSubmit} style={{ backgroundColor: "#ffffff", border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-md)", padding: "2rem" }}>
-        <AdminForm fields={fields} values={values} onChange={handleChange} />
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label style={labelStyle}>Full name</label>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Eg: Ashwin Rai" required style={inputStyle} />
+        </div>
 
-        <button type="submit" style={{
-          marginTop: "2rem",
-          fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500,
-          color: "#ffffff", backgroundColor: "var(--color-brand-teal)",
-          padding: "0.8rem 2rem", borderRadius: "var(--radius-full)",
-          border: "none", cursor: "pointer",
-        }}>
-          Add Member
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label style={labelStyle}>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="ashwin@wafttech.io" required style={inputStyle} />
+        </div>
+
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label style={labelStyle}>Temporary password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required style={inputStyle} />
+        </div>
+
+        <button
+          type="submit"
+          disabled={submitting}
+          style={{
+            fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500,
+            color: "#ffffff", backgroundColor: submitting ? "var(--color-gray-light)" : "var(--color-brand-teal)",
+            padding: "0.8rem 2rem", borderRadius: "var(--radius-full)",
+            border: "none", cursor: submitting ? "not-allowed" : "pointer",
+          }}
+        >
+          {submitting ? "Creating..." : "Add Member"}
         </button>
       </form>
     </div>

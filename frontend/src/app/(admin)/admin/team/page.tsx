@@ -3,33 +3,46 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus, Pencil, Trash2 } from "lucide-react";
-import teamData from "@/mock/team.json";
-import { loadCollection, saveCollection } from "@/lib/adminStore";
-
-interface Member {
-  id: string;
-  name: string;
-  role: string;
-  photo: string;
-  bio: string;
-}
-
-const STORE_KEY = "admin_team";
+import { getAllTeamMembersAdmin, deleteTeamMember, toggleTeamMemberActive, TeamMember } from "@/lib/team";
 
 export default function AdminTeamPage() {
-  const [members, setMembers] = useState<Member[]>([]);
+  const [members, setMembers] = useState<TeamMember[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadMembers = async () => {
+    const result = await getAllTeamMembersAdmin();
+    if (result.success) {
+      setMembers(result.data);
+      setError(null);
+    } else {
+      setError(result.error);
+    }
+    setLoaded(true);
+  };
 
   useEffect(() => {
-    setMembers(loadCollection<Member>(STORE_KEY, teamData as Member[]));
-    setLoaded(true);
+    loadMembers();
   }, []);
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: number) => {
     if (!confirm("Remove this team member? This cannot be undone.")) return;
-    const updated = members.filter((m) => m.id !== id);
-    setMembers(updated);
-    saveCollection(STORE_KEY, updated);
+
+    const result = await deleteTeamMember(id);
+    if (result.success) {
+      setMembers((prev) => prev.filter((m) => m.id !== id));
+    } else {
+      alert(result.error);
+    }
+  };
+
+  const handleToggleActive = async (id: number) => {
+    const result = await toggleTeamMemberActive(id);
+    if (result.success) {
+      setMembers((prev) => prev.map((m) => (m.id === id ? result.data : m)));
+    } else {
+      alert(result.error);
+    }
   };
 
   if (!loaded) return null;
@@ -56,10 +69,15 @@ export default function AdminTeamPage() {
         </Link>
       </div>
 
+      {error && (
+        <p style={{ fontSize: "0.85rem", color: "#c0392b", marginBottom: "1.25rem" }}>{error}</p>
+      )}
+
       <div style={{ backgroundColor: "#ffffff", border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 2fr auto", padding: "0.9rem 1.5rem", borderBottom: "1px solid var(--color-gray-border)", backgroundColor: "var(--color-gray-bg)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 2fr 1fr auto", padding: "0.9rem 1.5rem", borderBottom: "1px solid var(--color-gray-border)", backgroundColor: "var(--color-gray-bg)" }}>
           <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--color-gray-light)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Name</span>
           <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--color-gray-light)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Role</span>
+          <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--color-gray-light)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Status</span>
           <span></span>
         </div>
 
@@ -70,7 +88,7 @@ export default function AdminTeamPage() {
         ) : (
           members.map((member, i) => (
             <div key={member.id} style={{
-              display: "grid", gridTemplateColumns: "2fr 2fr auto",
+              display: "grid", gridTemplateColumns: "2fr 2fr 1fr auto",
               alignItems: "center", padding: "1rem 1.5rem",
               borderBottom: i < members.length - 1 ? "1px solid var(--color-gray-border)" : "none",
             }}>
@@ -80,7 +98,19 @@ export default function AdminTeamPage() {
                 </div>
                 <span style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--color-black)" }}>{member.name}</span>
               </div>
-              <span style={{ fontSize: "0.85rem", color: "var(--color-gray-mid)" }}>{member.role}</span>
+              <span style={{ fontSize: "0.85rem", color: "var(--color-gray-mid)" }}>{member.roleTitle || "—"}</span>
+              <button
+                onClick={() => handleToggleActive(member.id)}
+                style={{
+                  fontSize: "0.75rem", fontWeight: 600, padding: "0.25rem 0.7rem",
+                  borderRadius: "var(--radius-full)", border: "none", cursor: "pointer",
+                  width: "fit-content",
+                  color: member.isActive ? "#1e7d4a" : "var(--color-gray-mid)",
+                  backgroundColor: member.isActive ? "#e5f6ec" : "var(--color-gray-bg)",
+                }}
+              >
+                {member.isActive ? "Active" : "Inactive"}
+              </button>
               <div style={{ display: "flex", gap: "0.5rem", justifyContent: "flex-end" }}>
                 <Link href={"/admin/team/" + member.id + "/edit"} aria-label="Edit" style={{
                   width: "32px", height: "32px", borderRadius: "50%", border: "1px solid var(--color-gray-border)",
