@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getPublicTeamMembers, TeamMember } from "@/lib/team";
+import { Linkedin } from "lucide-react";
 
 export default function TeamGrid() {
   const [members, setMembers] = useState<TeamMember[]>([]);
@@ -28,10 +29,64 @@ export default function TeamGrid() {
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 240px))", gap: "2rem", justifyContent: "center" }}>
           {members.map((member) => (
-            <div key={member.id} style={{ width: "100%", maxWidth: "240px" }}>
-              <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: "var(--radius-md)", overflow: "hidden", backgroundColor: "var(--color-gray-bg)", marginBottom: "1rem", filter: "grayscale(100%)" }}>
+            <div key={member.id} className="team-card" style={{ width: "100%", maxWidth: "240px" }}>
+              <div
+                className="team-card-media"
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "3/4",
+                  borderRadius: "var(--radius-md)",
+                  overflow: "hidden",
+                  backgroundColor: "var(--color-gray-bg)",
+                  marginBottom: "1rem",
+                }}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={member.photo ?? "/images/team/placeholder.jpg"} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img
+                  src={member.photo ?? "/images/team/placeholder.jpg"}
+                  alt={member.name}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(100%)" }}
+                />
+
+                {member.bio && (
+                  <div
+                    className="team-card-overlay"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      backgroundColor: "rgba(10, 20, 40, 0.85)",
+                      padding: "1.25rem",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-start",
+                      gap: "0.75rem",
+                      opacity: 0,
+                      transition: "opacity 250ms ease",
+                    }}
+                  >
+                    <div style={{
+                      width: "28px",
+                      height: "28px",
+                      borderRadius: "4px",
+                      backgroundColor: "#0a66c2",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <Linkedin size={16} strokeWidth={2} color="#ffffff" />
+                    </div>
+                    <p style={{
+                      fontSize: "0.85rem",
+                      lineHeight: 1.6,
+                      color: "#ffffff",
+                      overflowY: "auto",
+                    }}>
+                      {member.bio}
+                    </p>
+                  </div>
+                )}
               </div>
               <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 600, color: "var(--color-black)", marginBottom: "0.25rem" }}>{member.name}</h3>
               <p style={{ fontSize: "0.875rem", color: "var(--color-brand-teal)" }}>{member.roleTitle}</p>
@@ -39,6 +94,12 @@ export default function TeamGrid() {
           ))}
         </div>
       </div>
+
+      <style jsx global>{`
+        .team-card-media:hover .team-card-overlay {
+          opacity: 1;
+        }
+      `}</style>
     </section>
   );
 }
