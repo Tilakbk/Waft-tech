@@ -91,4 +91,22 @@ public class TeamMemberController {
     public ResponseEntity<TeamMemberResponseDto> toggleTeamMemberActive(@PathVariable Long id){
         return ResponseEntity.ok(teamMemberService.toggleActiveStatus(id));
     }
+
+    @Operation(
+            summary = "Delete team member (HR)",
+            description = "Permanently deletes a team member account. This action cannot be undone. "
+                    + "Restricted to HR role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Team member deleted successfully"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not HR"),
+            @ApiResponse(responseCode = "404", description = "No team member found with the given ID")
+    })
+    @PreAuthorize("hasRole('HR')")
+    @DeleteMapping("/team/admin/{id}")
+    public ResponseEntity<Void> deleteTeamMember(@PathVariable Long id){
+        teamMemberService.deleteTeamMember(id);
+        return ResponseEntity.noContent().build();
+    }
 }
