@@ -74,4 +74,21 @@ public class TeamMemberController {
         return ResponseEntity.ok(teamMemberService.updateTeamMember(id, requestDto));
     }
 
+    @Operation(
+            summary = "Toggle team member active status (HR)",
+            description = "Flips a team member between active and inactive. Inactive members are hidden "
+                    + "from the public team listing (GET /api/team), same as an unpublished project is "
+                    + "hidden from the public projects listing. Restricted to HR role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Active status toggled successfully"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not HR"),
+            @ApiResponse(responseCode = "404", description = "No team member found with the given ID")
+    })
+    @PreAuthorize("hasRole('HR')")
+    @PatchMapping("/team/admin/{id}/toggle-active")
+    public ResponseEntity<TeamMemberResponseDto> toggleTeamMemberActive(@PathVariable Long id){
+        return ResponseEntity.ok(teamMemberService.toggleActiveStatus(id));
+    }
 }

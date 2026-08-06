@@ -70,4 +70,19 @@ public class TeamMemberService {
 
         return Mapper.toTeamMemberResponseDto(waftUserRepo.save(teamMember));
     }
+
+    @Transactional
+    public TeamMemberResponseDto toggleActiveStatus(Long id) {
+
+        WaftUser teamMember = waftUserRepo.findById(id)
+                .orElseThrow(() -> new TeamMemberNotFoundException("Member with id " + id + " is not found"));
+
+        if (teamMember.getRole() != Role.TEAM_MEMBER) {
+            throw new TeamMemberNotFoundException("User with id " + id + " is not a team member");
+        }
+
+        teamMember.setIsActive(!teamMember.getIsActive());
+
+        return Mapper.toTeamMemberResponseDto(waftUserRepo.save(teamMember));
+    }
 }
