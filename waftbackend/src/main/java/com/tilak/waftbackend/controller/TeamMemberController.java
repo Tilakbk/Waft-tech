@@ -1,5 +1,6 @@
 package com.tilak.waftbackend.controller;
 
+import com.tilak.waftbackend.dto.request.TeamMemberUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.TeamMemberResponseDto;
 
 import com.tilak.waftbackend.service.TeamMemberService;
@@ -10,10 +11,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,5 +55,23 @@ public class TeamMemberController {
         return ResponseEntity.ok(teamMemberService.getTeamMemberById(id));
     }
 
+    @Operation(
+            summary = "Update team member (HR)",
+            description = "Updates a team member's profile fields. Only fields present in the request "
+                    + "body are modified. Only TEAM_MEMBER role users can be updated through this "
+                    + "endpoint. Restricted to HR role."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Team member updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Name was provided but is blank"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
+            @ApiResponse(responseCode = "403", description = "Authenticated user is not HR"),
+            @ApiResponse(responseCode = "404", description = "No team member found with the given ID")
+    })
+    @PreAuthorize("hasRole('HR')")
+    @PatchMapping("/team/admin/{id}")
+    public ResponseEntity<TeamMemberResponseDto> updateTeamMember(@PathVariable Long id, @RequestBody TeamMemberUpdateRequestDto requestDto){
+        return ResponseEntity.ok(teamMemberService.updateTeamMember(id, requestDto));
+    }
 
 }
