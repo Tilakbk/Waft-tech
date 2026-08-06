@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getPublicTeamMembers, TeamMember } from "@/lib/team";
-import { Linkedin } from "lucide-react";
+import { Link2 } from "lucide-react";
 
 export default function TeamGrid() {
   const [members, setMembers] = useState<TeamMember[]>([]);
@@ -75,7 +75,7 @@ export default function TeamGrid() {
                       justifyContent: "center",
                       flexShrink: 0,
                     }}>
-                      <Linkedin size={16} strokeWidth={2} color="#ffffff" />
+                      <Link2 size={16} strokeWidth={2} color="#ffffff" />
                     </div>
                     <p style={{
                       fontSize: "0.85rem",
