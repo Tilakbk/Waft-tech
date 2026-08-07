@@ -1,0 +1,6 @@
+2026-08-07 14:26:31.464951+05:45 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "delete blog_post [*]where id=1"; expected "., FROM"; SQL statement:
+delete blog_post where id=1 [42001-240]
+2026-08-07 14:26:53.031684+05:45 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "blog_posr" not found; SQL statement:
+select * from blog_posr [42102-240]

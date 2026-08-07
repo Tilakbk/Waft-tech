@@ -3,9 +3,12 @@ package com.tilak.waftbackend.service;
 import com.tilak.waftbackend.dto.request.TeamMemberUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.TeamMemberResponseDto;
 import com.tilak.waftbackend.enums.Role;
+import com.tilak.waftbackend.exception.TeamMemberHasBlogPostsException;
 import com.tilak.waftbackend.exception.TeamMemberNotFoundException;
 import com.tilak.waftbackend.mapper.Mapper;
+import com.tilak.waftbackend.model.BlogPost;
 import com.tilak.waftbackend.model.WaftUser;
+import com.tilak.waftbackend.repository.BlogPostRepo;
 import com.tilak.waftbackend.repository.WaftUserRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeamMemberService {
     private final WaftUserRepo waftUserRepo;
-
+    private final BlogPostRepo blogPostRepo;
     public List<TeamMemberResponseDto> getAllTeamMember() {
 
         List<WaftUser> waftUsers= waftUserRepo.findAllByRole(Role.TEAM_MEMBER);
@@ -88,6 +91,10 @@ public class TeamMemberService {
 
     @Transactional
     public void deleteTeamMember(Long id) {
+
+        if (blogPostRepo.existsByAuthor_Id(id)){
+            throw new TeamMemberHasBlogPostsException("This team member has authored blog, try deactivating instead");
+        }
 
         WaftUser teamMember = waftUserRepo.findById(id)
                 .orElseThrow(() -> new TeamMemberNotFoundException("Member with id " + id + " is not found"));
