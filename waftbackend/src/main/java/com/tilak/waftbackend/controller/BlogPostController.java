@@ -93,6 +93,7 @@ public class BlogPostController {
             @ApiResponse(responseCode = "200", description = "Blog post retrieved successfully"),
             @ApiResponse(responseCode = "404", description = "No published blog post exists with the given slug")
     })
+
     @GetMapping("/blog-posts/{slug}")
     public ResponseEntity<BlogPostResponseDto> getPublishedBlogPostBySlug(@PathVariable String slug) {
         return ResponseEntity.ok(blogPostService.getPublishedBlogPostBySlug(slug));
@@ -140,16 +141,11 @@ public class BlogPostController {
 
     @Operation(
             summary = "Toggle a blog post's publish status",
-            description = "Flips a blog post between published and unpublished. Restricted to the "
-                    + "post's own author (TEAM_MEMBER) — ADMIN and HR cannot toggle any post."
+            description = "Flips a blog post between published and unpublished. The post's own author "
+                    + "(TEAM_MEMBER) can toggle it, and ADMIN/HR can also toggle any post's status as a "
+                    + "moderation action — even though they cannot edit or delete the post's content."
     )
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Publish status toggled successfully"),
-            @ApiResponse(responseCode = "401", description = "Missing or invalid JWT"),
-            @ApiResponse(responseCode = "403", description = "Authenticated user is not this post's author"),
-            @ApiResponse(responseCode = "404", description = "No blog post exists with the given ID")
-    })
-    @PreAuthorize("hasRole('TEAM_MEMBER')")
+    @PreAuthorize("hasAnyRole('ADMIN','HR','TEAM_MEMBER')")
     @PatchMapping("/blog-posts/{id}/publish")
     public ResponseEntity<BlogPostResponseDto> togglePublishStatus(@PathVariable Long id, Authentication authentication) {
         PrincipalUser principal = (PrincipalUser) authentication.getPrincipal();
