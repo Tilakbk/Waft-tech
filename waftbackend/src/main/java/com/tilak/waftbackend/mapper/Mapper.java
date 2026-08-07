@@ -1,10 +1,8 @@
 package com.tilak.waftbackend.mapper;
 
-import com.tilak.waftbackend.dto.request.CreateWaftUserRequestDto;
-import com.tilak.waftbackend.dto.request.ProjectImageRequestDto;
-import com.tilak.waftbackend.dto.request.ProjectRequestDto;
-import com.tilak.waftbackend.dto.request.ProjectUpdateRequestDto;
+import com.tilak.waftbackend.dto.request.*;
 import com.tilak.waftbackend.dto.response.*;
+import com.tilak.waftbackend.model.BlogPost;
 import com.tilak.waftbackend.model.Project;
 import com.tilak.waftbackend.model.ProjectImage;
 import com.tilak.waftbackend.model.WaftUser;
@@ -139,6 +137,31 @@ public class Mapper {
                 .build();
     }
 
+    public static BlogPost toBlogPost(BlogPostRequestDto requestDto) {
+        return BlogPost.builder()
+                .title(requestDto.getTitle())
+                .category(requestDto.getCategory())
+                .coverImageUrl(requestDto.getCoverImageUrl())
+                .excerpt(requestDto.getExcerpt())
+                .content(requestDto.getContent())
+                .build();
+    }
+
+    public static BlogPostResponseDto toBlogPostResponseDto(BlogPost blogPost) {
+        return BlogPostResponseDto.builder()
+                .id(blogPost.getId())
+                .slug(blogPost.getSlug())
+                .title(blogPost.getTitle())
+                .category(blogPost.getCategory())
+                .coverImageUrl(blogPost.getCoverImageUrl())
+                .excerpt(blogPost.getExcerpt())
+                .content(blogPost.getContent())
+                .isPublished(blogPost.getIsPublished())
+                .createdAt(blogPost.getCreatedAt())
+                .updatedAt(blogPost.getUpdatedAt())
+                .authorName(blogPost.getAuthor().getName())
+                .build();
+    }
 
 
 }
