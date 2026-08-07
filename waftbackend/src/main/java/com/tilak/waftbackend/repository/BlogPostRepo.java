@@ -1,6 +1,7 @@
 package com.tilak.waftbackend.repository;
 
 import com.tilak.waftbackend.model.BlogPost;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,6 @@ public interface BlogPostRepo extends JpaRepository<BlogPost,Long> {
     boolean existsBySlug(String slug);
 
     boolean existsByAuthor_Id(Long authorId);
+
+    Page<BlogPost> findAllByAuthor_Id(Long authorId);
 }

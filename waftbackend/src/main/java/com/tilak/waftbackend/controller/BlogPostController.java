@@ -4,7 +4,6 @@ import com.tilak.waftbackend.dto.request.BlogPostRequestDto;
 import com.tilak.waftbackend.dto.request.BlogPostUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.BlogPostResponseDto;
 import com.tilak.waftbackend.model.PrincipalUser;
-import com.tilak.waftbackend.model.WaftUser;
 import com.tilak.waftbackend.service.BlogPostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -3,6 +3,7 @@ package com.tilak.waftbackend.service;
 import com.tilak.waftbackend.dto.request.BlogPostRequestDto;
 import com.tilak.waftbackend.dto.request.BlogPostUpdateRequestDto;
 import com.tilak.waftbackend.dto.response.BlogPostResponseDto;
+import com.tilak.waftbackend.enums.Role;
 import com.tilak.waftbackend.exception.DuplicateSlugException;
 import com.tilak.waftbackend.mapper.Mapper;
 import com.tilak.waftbackend.model.BlogPost;
@@ -42,7 +43,16 @@ public class BlogPostService {
 
 
     public Page<BlogPostResponseDto> getAllBlogPostsAdmin(Pageable pageable, WaftUser waftUser) {
-        return null;
+
+        Page<BlogPost> blogPosts;
+        if (waftUser.getRole()== Role.ADMIN || waftUser.getRole()==Role.HR){
+            blogPosts = repo.findAll(pageable);
+        }
+
+        else{
+            blogPosts = repo.findAllByAuthor_Id(waftUser.getId());
+        }
+        return blogPosts.map(Mapper::toBlogPostResponseDto);
     }
 
     public Page<BlogPostResponseDto> getPublishedBlogPosts(String category, Pageable pageable) {

@@ -91,16 +91,14 @@ public class TeamMemberService {
 
     @Transactional
     public void deleteTeamMember(Long id) {
-
-        if (blogPostRepo.existsByAuthor_Id(id)){
-            throw new TeamMemberHasBlogPostsException("This team member has authored blog, try deactivating instead");
-        }
-
         WaftUser teamMember = waftUserRepo.findById(id)
                 .orElseThrow(() -> new TeamMemberNotFoundException("Member with id " + id + " is not found"));
 
         if (teamMember.getRole() != Role.TEAM_MEMBER) {
             throw new TeamMemberNotFoundException("User with id " + id + " is not a team member");
+        }
+        if (blogPostRepo.existsByAuthor_Id(id)){
+            throw new TeamMemberHasBlogPostsException("This team member has authored blog, try deactivating instead");
         }
 
         waftUserRepo.delete(teamMember);
