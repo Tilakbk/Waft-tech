@@ -116,4 +116,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiErrorDto);
     }
+
+    @ExceptionHandler(TeamMemberHasBlogPostsException.class)
+    public ResponseEntity<ApiErrorDto> handleTeamMemberHasBlogPostsException(TeamMemberHasBlogPostsException e, HttpServletRequest request) {
+
+        log.warn("Blocked team member deletion: {}", e.getMessage());
+
+        ApiErrorDto apiErrorDto = new ApiErrorDto(HttpStatus.CONFLICT.value(), "Team Member Has Authored Posts", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiErrorDto);
+    }
 }
