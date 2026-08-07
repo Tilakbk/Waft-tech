@@ -6,7 +6,6 @@ CREATE TABLE blog_post(
     cover_image_url VARCHAR(500),
     excerpt VARCHAR(300),
     content LONGTEXT,
-    featured BOOLEAN NOT NULL DEFAULT FALSE,
     is_published BOOLEAN NOT NULL DEFAULT TRUE,
     author_id BIGINT NOT NULL ,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
