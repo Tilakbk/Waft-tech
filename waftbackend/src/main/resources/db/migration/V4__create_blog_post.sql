@@ -5,7 +5,7 @@ CREATE TABLE blog_post(
     category VARCHAR(100),
     cover_image_url VARCHAR(500),
     excerpt VARCHAR(300),
-    content LONGTEXT,
+    content TEXT,
     is_published BOOLEAN NOT NULL DEFAULT TRUE,
     author_id BIGINT NOT NULL ,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

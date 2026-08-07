@@ -35,8 +35,8 @@ public class BlogPost {
     @Column(length = 300)
     private String excerpt;
 
-    @Lob
-    @Column(columnDefinition = "LONGTEXT")
+
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Builder.Default
