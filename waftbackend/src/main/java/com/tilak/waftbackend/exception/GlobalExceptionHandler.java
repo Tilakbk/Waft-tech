@@ -126,4 +126,15 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(apiErrorDto);
     }
+
+    @ExceptionHandler(BlogPostNotFoundException.class)
+    public ResponseEntity<ApiErrorDto> handleBlogPostNotFoundException(BlogPostNotFoundException e, HttpServletRequest request) {
+
+        log.warn("Blog post not found: {}", e.getMessage());
+
+        ApiErrorDto apiErrorDto = new ApiErrorDto(HttpStatus.NOT_FOUND.value(), "Blog post does not exist for provided id", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiErrorDto);
+    }
+
 }
