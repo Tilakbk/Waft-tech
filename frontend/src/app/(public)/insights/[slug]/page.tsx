@@ -72,7 +72,8 @@ export default async function InsightPostPage({ params }: { params: Promise<{ sl
               { label: "Twitter", icon: "x", href: "https://twitter.com" },
             ].map((s) => (
               
-                key={s.label}
+                
+                  key={s.label}
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
