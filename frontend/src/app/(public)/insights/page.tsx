@@ -1,37 +1,68 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import blogData from "@/mock/blog.json";
-
-interface Post {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  image: string;
-  date: string;
-  featured: boolean;
-}
+import { getPublishedBlogPosts, BlogPost } from "@/lib/blog";
 
 const categories = ["All", "Magento Commerce", "Web Design", "Web Development", "Design", "Wordpress", "SEO"];
 const PAGE_SIZE = 6;
 
 export default function InsightsPage() {
-  const posts = blogData as Post[];
-  const featured = posts.find((p) => p.featured);
-  const rest = posts.filter((p) => !p.featured);
-
   const [activeCategory, setActiveCategory] = useState("All");
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const filtered = activeCategory === "All" ? rest : rest.filter((p) => p.category === activeCategory);
-  const visible = filtered.slice(0, visibleCount);
-  const hasMore = visibleCount < filtered.length;
+  useEffect(() => {
+    let cancelled = false;
+
+    async function load() {
+      setLoaded(false);
+      const result = await getPublishedBlogPosts({
+        category: activeCategory === "All" ? undefined : activeCategory,
+        page: 0,
+        size: PAGE_SIZE,
+      });
+
+      if (cancelled) return;
+
+      if (result.success) {
+        setPosts(result.data.content);
+        setPage(0);
+        setHasMore(!result.data.last);
+        setError(null);
+      } else {
+        setError(result.error);
+      }
+      setLoaded(true);
+    }
+
+    load();
+    return () => { cancelled = true; };
+  }, [activeCategory]);
+
+  const handleLoadMore = async () => {
+    setLoadingMore(true);
+    const nextPage = page + 1;
+    const result = await getPublishedBlogPosts({
+      category: activeCategory === "All" ? undefined : activeCategory,
+      page: nextPage,
+      size: PAGE_SIZE,
+    });
+
+    if (result.success) {
+      setPosts((prev) => [...prev, ...result.data.content]);
+      setPage(nextPage);
+      setHasMore(!result.data.last);
+    }
+    setLoadingMore(false);
+  };
 
   const handleCategoryChange = (cat: string) => {
     setActiveCategory(cat);
-    setVisibleCount(PAGE_SIZE);
   };
 
   return (
@@ -78,67 +109,21 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Featured post — full width banner */}
-      {featured && activeCategory === "All" && (
-        <section style={{ paddingBottom: "4rem" }}>
-          <div className="container-custom">
-            <Link href={"/insights/" + featured.slug} style={{ display: "block" }}>
-              <div style={{
-                position: "relative",
-                width: "100%",
-                height: "min(45vw, 420px)",
-                borderRadius: "var(--radius-md)",
-                overflow: "hidden",
-                backgroundColor: "#1a1a6e",
-              }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={featured.image}
-                  alt={featured.title}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0"; }}
-                />
-                <div style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%)",
-                  padding: "3rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  maxWidth: "600px",
-                }}>
-                  <h2 style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    lineHeight: 1.2,
-                    marginBottom: "1rem",
-                  }}>
-                    {featured.title}
-                  </h2>
-                  <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.7 }}>
-                    {featured.excerpt}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </section>
-      )}
-
       {/* Blog grid */}
       <section style={{ paddingBottom: "7rem" }}>
         <div className="container-custom">
+          {error && (
+            <p style={{ fontSize: "0.9rem", color: "#c0392b", marginBottom: "2rem" }}>{error}</p>
+          )}
+
           <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: "2rem",
             marginBottom: "4rem",
           }}>
-            {visible.map((post) => (
-              <Link key={post.slug} href={"/insights/" + post.slug} style={{ display: "block", border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-md)", overflow: "hidden", transition: "box-shadow 200ms ease" }}
+            {posts.map((post) => (
+              <Link key={post.id} href={"/insights/" + post.slug} style={{ display: "block", border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-md)", overflow: "hidden", transition: "box-shadow 200ms ease" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 4px 24px rgba(0,0,0,0.08)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.boxShadow = "none"; }}
               >
@@ -146,7 +131,7 @@ export default function InsightsPage() {
                 <div style={{ width: "100%", aspectRatio: "16/9", backgroundColor: "#1a1a6e", overflow: "hidden" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={post.image}
+                    src={post.coverImageUrl}
                     alt={post.title}
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0"; }}
@@ -173,7 +158,7 @@ export default function InsightsPage() {
             ))}
           </div>
 
-          {filtered.length === 0 && (
+          {loaded && posts.length === 0 && (
             <p style={{ textAlign: "center", fontSize: "1rem", color: "var(--color-gray-mid)", padding: "4rem 0" }}>
               No posts found in this category.
             </p>
@@ -183,23 +168,22 @@ export default function InsightsPage() {
           {hasMore && (
             <div style={{ display: "flex", justifyContent: "center" }}>
               <button
-                onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                onClick={handleLoadMore}
+                disabled={loadingMore}
                 style={{
                   fontFamily: "var(--font-body)",
                   fontSize: "0.95rem",
                   fontWeight: 500,
                   color: "#ffffff",
-                  backgroundColor: "var(--color-brand-teal)",
+                  backgroundColor: loadingMore ? "var(--color-gray-light)" : "var(--color-brand-teal)",
                   padding: "0.875rem 2.5rem",
                   borderRadius: "var(--radius-full)",
                   border: "none",
-                  cursor: "pointer",
+                  cursor: loadingMore ? "not-allowed" : "pointer",
                   transition: "background-color 150ms ease",
                 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-brand-teal-dark)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-brand-teal)"; }}
               >
-                Load More
+                {loadingMore ? "Loading..." : "Load More"}
               </button>
             </div>
           )}
