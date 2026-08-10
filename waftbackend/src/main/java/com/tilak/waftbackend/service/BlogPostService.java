@@ -125,7 +125,16 @@ public class BlogPostService {
     @Transactional
     public BlogPostResponseDto togglePublishStatus(Long id, WaftUser waftUser) {
 
-        BlogPost blogPost = repo.findById(id).orElseThrow(() -> new BlogPostNotFoundException("Blog post with id: " + id + " not found"));
+        BlogPost blogPost = repo.findById(id)
+                .orElseThrow(() -> new BlogPostNotFoundException("Blog post with id: " + id + " not found"));
+
+        boolean isPrivileged = waftUser.getRole() == Role.ADMIN || waftUser.getRole() == Role.HR;
+        boolean isOwner = blogPost.getAuthor().getId().equals(waftUser.getId());
+
+        if (!isPrivileged && !isOwner) {
+            throw new UserNotPermittedException("You can only toggle your own blog posts.");
+        }
+
         blogPost.setIsPublished(!blogPost.getIsPublished());
         return Mapper.toBlogPostResponseDto(repo.save(blogPost));
     }
