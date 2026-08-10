@@ -4,3 +4,9 @@ delete blog_post where id=1 [42001-240]
 2026-08-07 14:26:53.031684+05:45 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "blog_posr" not found; SQL statement:
 select * from blog_posr [42102-240]
+2026-08-10 11:41:50.789488+05:45 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "blog_posts" not found; SQL statement:
+select * from blog_posts [42102-240]
+2026-08-10 15:19:46.375500+05:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "photo CHARACTER VARYING(500)": "'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04... (3627)"; SQL statement:
+update waft_user set bio=?,created_by_id=?,email=?,is_active=?,name=?,password_hash=?,photo=?,role=?,role_title=?,updated_at=? where id=? [22001-240]

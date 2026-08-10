@@ -43,7 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/api/projects", "/api/projects/*","/api/team").permitAll()
+                        .requestMatchers("/api/projects", "/api/projects/*","/api/team","/api/blog-posts","/api/blog-posts/{slug}").permitAll()
                         .anyRequest().authenticated()
                 )
 

@@ -3,8 +3,9 @@ import { getPublishedBlogPosts } from "@/lib/blog";
 
 export default async function InsightsPreview() {
   const result = await getPublishedBlogPosts({ size: 3 });
+  console.log("API_URL:", process.env.API_URL, process.env.NEXT_PUBLIC_API_URL);
+  console.log("Result:", JSON.stringify(result));
   const posts = result.success ? result.data.content : [];
-
   return (
     <section style={{ backgroundColor: "var(--color-white)", paddingTop: "7rem", paddingBottom: "7rem" }}>
       <div className="container-custom">
@@ -23,7 +24,7 @@ export default async function InsightsPreview() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem" }}>
           {posts.map((post) => (
             <Link key={post.slug} href={"/insights/" + post.slug} style={{ display: "block" }}>
-              <div style={{ width: "100%", aspectRatio: "1 / 1", borderRadius: "var(--radius-md)", overflow: "hidden", backgroundColor: "var(--color-gray-bg)", marginBottom: "1.25rem" }}>
+              <div style={{ width: "100%", aspectRatio: "16 / 9", borderRadius: "var(--radius-md)", overflow: "hidden", backgroundColor: "var(--color-gray-bg)", marginBottom: "1.25rem" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={post.coverImageUrl} alt={post.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
@@ -39,4 +40,5 @@ export default async function InsightsPreview() {
       </div>
     </section>
   );
+
 }
