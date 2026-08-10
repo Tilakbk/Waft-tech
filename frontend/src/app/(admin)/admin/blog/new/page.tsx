@@ -4,65 +4,45 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import blogData from "@/mock/blog.json";
-import { loadCollection, saveCollection } from "@/lib/adminStore";
-import AdminForm from "@/components/admin/AdminForm";
+import { createBlogPost } from "@/lib/blog";
 
-interface Post {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  image: string;
-  date: string;
-  featured: boolean;
-}
-
-const STORE_KEY = "admin_blog";
-
-const fields = [
-  { key: "title", label: "Post title", placeholder: "Eg: How to Choose a Magento Host", required: true },
-  { key: "slug", label: "URL slug", placeholder: "Eg: choose-magento-host (no spaces)", required: true },
-  { key: "category", label: "Category", placeholder: "Eg: Web Development", required: true },
-  { key: "excerpt", label: "Excerpt", type: "textarea" as const, placeholder: "A short summary shown on the Insights listing page.", required: true },
-  { key: "image", label: "Cover image URL", placeholder: "/images/insights/example.jpg" },
-];
+const inputStyle: React.CSSProperties = {
+  width: "100%", padding: "0.75rem 1rem", fontSize: "0.9rem",
+  border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-sm)",
+  fontFamily: "var(--font-body)", outline: "none",
+};
+const labelStyle: React.CSSProperties = {
+  display: "block", fontSize: "0.85rem", fontWeight: 600, color: "var(--color-black)", marginBottom: "0.5rem",
+};
 
 export default function NewBlogPostPage() {
   const router = useRouter();
-  const [values, setValues] = useState<Record<string, string>>({});
-  const [featured, setFeatured] = useState(false);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [coverImageUrl, setCoverImageUrl] = useState("");
+  const [excerpt, setExcerpt] = useState("");
+  const [content, setContent] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (key: string, value: string) => {
-    setValues((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const existing = loadCollection<Post>(STORE_KEY, blogData as Post[]);
+    setError(null);
+    setIsSubmitting(true);
 
-    if (existing.some((p) => p.slug === values.slug)) {
-      alert("A blog post with this slug already exists. Please choose a different slug.");
-      return;
+    const result = await createBlogPost({ title, category, coverImageUrl, excerpt, content });
+
+    setIsSubmitting(false);
+
+    if (result.success) {
+      router.push("/admin/blog");
+    } else {
+      setError(result.error);
     }
-
-    const newPost: Post = {
-      title: values.title || "",
-      slug: values.slug || "",
-      category: values.category || "",
-      excerpt: values.excerpt || "",
-      image: values.image || "/images/insights/placeholder.jpg",
-      date: new Date().toISOString().slice(0, 10),
-      featured,
-    };
-
-    const updated = [...existing, newPost];
-    saveCollection(STORE_KEY, updated);
-    router.push("/admin/blog");
   };
 
   return (
-    <div style={{ maxWidth: "640px" }}>
+    <div style={{ maxWidth: "720px" }}>
       <Link href="/admin/blog" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontSize: "0.85rem", color: "var(--color-gray-mid)", marginBottom: "1.5rem" }}>
         <ArrowLeft size={15} strokeWidth={2} />
         Back to Blog Posts
@@ -72,22 +52,37 @@ export default function NewBlogPostPage() {
         Add New Blog Post
       </h1>
 
-      <form onSubmit={handleSubmit} style={{ backgroundColor: "#ffffff", border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-md)", padding: "2rem" }}>
-        <AdminForm fields={fields} values={values} onChange={handleChange} />
+      <form onSubmit={handleSubmit} style={{ backgroundColor: "#ffffff", border: "1px solid var(--color-gray-border)", borderRadius: "var(--radius-md)", padding: "2rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+        <div>
+          <label style={labelStyle}>Title</label>
+          <input value={title} onChange={(e) => setTitle(e.target.value)} required style={inputStyle} />
+        </div>
+        <div>
+          <label style={labelStyle}>Category</label>
+          <input value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Eg: Web Development" style={inputStyle} />
+        </div>
+        <div>
+          <label style={labelStyle}>Cover image URL</label>
+          <input value={coverImageUrl} onChange={(e) => setCoverImageUrl(e.target.value)} style={inputStyle} />
+        </div>
+        <div>
+          <label style={labelStyle}>Excerpt</label>
+          <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} rows={2} placeholder="A short summary shown on the Insights listing page." style={{ ...inputStyle, resize: "vertical" }} />
+        </div>
+        <div>
+          <label style={labelStyle}>Content</label>
+          <textarea value={content} onChange={(e) => setContent(e.target.value)} rows={10} placeholder="Full article body. Use blank lines to separate paragraphs." style={{ ...inputStyle, resize: "vertical" }} />
+        </div>
 
-        <label style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginTop: "1.25rem", fontSize: "0.9rem", color: "var(--color-black)", cursor: "pointer" }}>
-          <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} style={{ width: "16px", height: "16px" }} />
-          Feature this post at the top of Insights
-        </label>
+        {error && <p style={{ fontSize: "0.85rem", color: "#c0392b" }}>{error}</p>}
 
-        <button type="submit" style={{
-          marginTop: "2rem",
+        <button type="submit" disabled={isSubmitting} style={{
           fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500,
-          color: "#ffffff", backgroundColor: "var(--color-brand-teal)",
-          padding: "0.8rem 2rem", borderRadius: "var(--radius-full)",
-          border: "none", cursor: "pointer",
+          color: "#ffffff", backgroundColor: isSubmitting ? "var(--color-gray-light)" : "var(--color-brand-teal)",
+          padding: "0.8rem 2rem", borderRadius: "var(--radius-full)", border: "none",
+          cursor: isSubmitting ? "not-allowed" : "pointer", alignSelf: "flex-start",
         }}>
-          Publish Post
+          {isSubmitting ? "Publishing..." : "Publish Post"}
         </button>
       </form>
     </div>
